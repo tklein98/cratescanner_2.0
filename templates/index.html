@@ -18,11 +18,14 @@
         uploadPreset: 'eawdr8fw',
         cropping: 'true',
         croppingCoordinatesMode: 'custom',
-        sources: ['local', 'camera'],
+        sources: ['local', 'camera']
 
       }, (error, result) => {
           if (!error && result && result.event === "success") {
-            console.log('Done! Here is the image url: ', result.info);
+            console.log('Done! Here is the image url: ', result.info.url);
+
+            // 1
+            window.location.href = "/result?url=" + result.info.url;
           }
         }
       )
