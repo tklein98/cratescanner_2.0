@@ -6,7 +6,7 @@ options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
-driver = webdriver.Chrome("/Users/cha/Downloads/chromedriver_2", chrome_options=options)
+driver = webdriver.Chrome("../webdriver_selenium/chromedriver_2", chrome_options=options)
 
 
 def get_top3_reviews(artist, album):
@@ -27,13 +27,15 @@ def get_top3_reviews(artist, album):
     artists = []
     for element in albums:
         a_list = []
-        tag = element.find("div", class_="artist")
-        if tag.find("a"):
-            a_list.append(tag)
-            for a in a_list:
-                tag = a.find("a")
-                if tag.text.lower() == artist:
-                    artists.append(element)
+        if element.find("div", class_="artist"):
+            tag = element.find("div", class_="artist")
+            if tag.find("a"):
+                a_list.append(tag)
+
+                for a in a_list:
+                    tag = a.find("a")
+                    if tag.text.lower() == artist:
+                        artists.append(element)
 
     #keep only albums with the right album name, and retrieve url
     url_2 = ''
@@ -54,8 +56,11 @@ def get_top3_reviews(artist, album):
         review_div = review.find("div", class_="middle")
         reviews.append(review_div.text)
 
-    #display top 3 reviews
+    # display message if no reviews were found
     if reviews == []:
         return "there are no reviews for this album yet."
 
+    #display top 3 reviews
     return reviews[:2]
+
+print(get_top3_reviews("pink floyd", "the dark side of the moon"))
