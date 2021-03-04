@@ -2,9 +2,7 @@ import pandas as pd
 import numpy as np
 from google.cloud import storage
 
-
 GCP_BUCKET_PATH = 'gs://cratescanner-306509/cratescannerdata'
-
 
 
 def download_blob(bucket_name, source_blob_name, destination_file_name):
@@ -26,9 +24,10 @@ def download_blob(bucket_name, source_blob_name, destination_file_name):
         )
     )
 
+def get_data():
+    vectors = np.load('gs://cratescanner-306509/cratescannerdata/full_array.npy')
+    return vectors
 
 
-# if __name__ == '__main__':
-#     vectors = get_data()
-
-
+if __name__ == '__main__':
+    vectors = get_data()
