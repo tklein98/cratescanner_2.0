@@ -31,3 +31,4 @@ memoized-property
 termcolor
 flask
 bs4==0.0.1
+selenium
