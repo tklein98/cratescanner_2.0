@@ -9,6 +9,7 @@ options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
+options.add_argument('--no-sandbox')
 driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install(), options=options)
 
 def get_top3_reviews(artist, album):
@@ -46,6 +47,7 @@ def get_top3_reviews(artist, album):
         if tag.text.lower() == album:
             album_list.append(tag['href'])
     url_2 = album_list[0]
+    print(url_2)
 
     #build url to the reviews page, and retrieve page
     url_reviews = f"{url_2}/user-reviews"
