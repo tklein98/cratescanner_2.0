@@ -9,7 +9,7 @@ options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
-options.add_argument('--no-sandbox')
+options.add_argument('--dns-prefetch-disable')
 driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install(), options=options)
 
 def get_top3_reviews(artist, album):
