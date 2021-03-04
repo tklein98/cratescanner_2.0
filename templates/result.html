@@ -7,19 +7,22 @@
       <title>Crate Scanner</title>
   </head>
   <body>
-    <p>Artist: {{artist}}</p>
-    <p>Album: {{album}}</p>
+    <p>Artist: {{artist.title()}}</p>
+    <p>Album: {{album.title()}}</p>
     <p>Price: {{price}}</p>
     <p>Spotify widget</p>
-    <iframe id="spotify_url" src="https://open.spotify.com/embed/album/" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+    <iframe src="https://open.spotify.com/embed/album/{{album_id}}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
     <p>Reviews</p>
+    {% if reviews:%}
+      {% for review in reviews %}
+      <p> {{review}}</p>
+      {%endfor%}
+    {%else%}
+      <p> No reviews found.</p>
+    {%endif%}
+
 
     <a href="/">Scan another Vinyl</a>
-    <script type="text/javascript">
-      let spotify_url = document.getElementById("spotify_url");
-      let newHTML = '<iframe src="https://open.spotify.com/embed/album/{{album_id}} " width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>';
-      spotify_url.innerHTML = newHTML;
-    </script>
   </body>
 
 </html>

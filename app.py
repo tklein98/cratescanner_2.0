@@ -15,8 +15,8 @@ def display_result():
     url = request.args.get("url")
 
     # run model: retrieve album and artist
-    artist = "nirvana"
-    album = "nevermind"
+    artist = "red hot chili peppers"
+    album = "by the way"
 
     # add spotify widget
     album_id = "2UJcKiJxNryhL050F5Z1Fk"
