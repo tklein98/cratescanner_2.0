@@ -3,14 +3,19 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.utils import ChromeType
 from bs4 import BeautifulSoup
 
-
+GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
 
 options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
-options.add_argument('--dns-prefetch-disable')
-driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install(), options=options)
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+
+options.binary_location = GOOGLE_CHROME_PATH
+
+driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, chrome_options=options)
 
 def get_top3_reviews(artist, album):
     #build URL
