@@ -17,10 +17,10 @@ spotify = SpotifyAPI(client_id, client_secret)
 def get_album(artist):
 
     # Grab the relevant album metadata json file based on album_id from Spotify API
-    album_search = spotify.search(query = artist, search_type="album")['albums']['items']
-    if len(album_search)>0:
-        return album_search[0]
-    else:
+    album_search = spotify.search(query = artist, search_type="album")
+    try:
+        return album_search['albums']['items'][0]
+    except:
         return None
 
 

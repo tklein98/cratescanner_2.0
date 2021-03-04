@@ -54,12 +54,11 @@ def get_album_metadata(input_file, input_file_2, nrows, skiprows, album_output_f
     album_dataset = pd.concat([input_df, input_df_2], ignore_index=True)
 
     # Remove incorrect data input
-    album_dataset = album_dataset[~album_dataset.artists.str.contains("artists")]
+    # album_dataset = album_dataset[~album_dataset.artists.str.contains("artists")]
 
     # # Drop duplicates and rows with none values in the album_id column
     album_dataset = album_dataset.dropna(axis=0, subset=['album_id'])
     album_dataset.drop_duplicates(subset=['album_id'], inplace=True)
-
 
     # Write result as csv to a file path
     album_dataset.to_csv(album_output_file, index=False)
@@ -85,10 +84,7 @@ if __name__ == "__main__":
     # Returns dataframe with 5 rows
     #return input_df
 
-#QUESTIONS:
-# When I share with teammates, will they also have to call the Spotify API to
-# download all the data?
-# Can the dataset I create
+
 
 
 
