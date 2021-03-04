@@ -1,13 +1,14 @@
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
-import ipdb
+
+
 
 options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
-driver = webdriver.Chrome("../webdriver_selenium/chromedriver_2", chrome_options=options)
-
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
 def get_top3_reviews(artist, album):
     #build URL
@@ -38,11 +39,12 @@ def get_top3_reviews(artist, album):
                         artists.append(element)
 
     #keep only albums with the right album name, and retrieve url
-    url_2 = ''
+    album_list = []
     for element in artists:
         tag = element.find("div", class_="title").find("a")
         if tag.text.lower() == album:
-            url_2 = tag['href']
+            album_list.append(tag['href'])
+    url_2 = album_list[0]
 
     #build url to the reviews page, and retrieve page
     url_reviews = f"{url_2}/user-reviews"
@@ -58,9 +60,7 @@ def get_top3_reviews(artist, album):
 
     # display message if no reviews were found
     if reviews == []:
-        return "there are no reviews for this album yet."
+        return False
 
     #display top 3 reviews
     return reviews[:2]
-
-print(get_top3_reviews("pink floyd", "the dark side of the moon"))
