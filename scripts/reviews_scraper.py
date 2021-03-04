@@ -1,13 +1,14 @@
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
-import ipdb
+
+
 
 options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
-driver = webdriver.Chrome("../webdriver_selenium/chromedriver_2", chrome_options=options)
-
+driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 
 def get_top3_reviews(artist, album):
     #build URL
