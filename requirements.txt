@@ -34,3 +34,4 @@ bs4==0.0.1
 selenium
 webdriver_manager
 chromedriver
+lxml
