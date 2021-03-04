@@ -9,6 +9,9 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import cv2
 import os
+from os import listdir
+from os.path import isfile, join
+
 
 
 LOCAL_PATH = '/home/beres/code/tklein98/crate_scanner/notebooks/test_images'
@@ -86,6 +89,8 @@ def get_testing_dataframe(directory_path):
              "label": cleaned_string
               }, ignore_index=True)
     return df
+
+
 
 
 
