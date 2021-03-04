@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+
+from crate_scanner.getmusicdata import downloadalbumdata
+
+local_path = "/Users/wesleyhouse/code/WesH0use/crate_scanner/notebooks/data/data.csv"
+local_path_2 = "/Users/wesleyhouse/code/WesH0use/crate_scanner/notebooks/data/best_albums.csv"
+album_output_path = "/Users/wesleyhouse/code/WesH0use/crate_scanner/crate_scanner/data/full_albums.csv"
+song_output_path = "/Users/wesleyhouse/code/WesH0use/crate_scanner/crate_scanner/data/full_songs.csv"
+downloadalbumdata.get_album_metadata(local_path, local_path_2, nrows=10000, skiprows=1000, album_output_file = album_output_path)
+downloadalbumdata.get_song_metadata(local_path, nrows=5, skiprows=1000, song_output_file=song_output_path)

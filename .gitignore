@@ -5,6 +5,8 @@
 data/
 **/__pycache__/
 .env
+crate_scanner/data/*
+notebooks/data/*
 notebooks/images/
 notebooks/test_images/
 cratescanner-a0653af71d87.json
