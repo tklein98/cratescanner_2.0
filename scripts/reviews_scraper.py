@@ -15,7 +15,7 @@ options.add_argument('--no-sandbox')
 
 options.binary_location = GOOGLE_CHROME_PATH
 
-driver = webdriver.Chrome(execution_path=CHROMEDRIVER_PATH, chrome_options=options)
+driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=options)
 
 def get_top3_reviews(artist, album):
     #build URL
