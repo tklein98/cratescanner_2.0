@@ -22,6 +22,8 @@ gcsfs
 google-cloud-storage
 mlflow
 s3fs
+cloudinary
+
 
 # utilities
 six>=1.14
@@ -29,3 +31,9 @@ joblib
 memoized-property
 termcolor
 python-dotenv
+flask
+beautifulsoup4==4.9.3
+selenium
+webdriver_manager
+chromedriver
+lxml
