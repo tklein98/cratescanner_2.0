@@ -29,7 +29,7 @@ def display_result():
     reviews = get_top3_reviews(artist, album)
 
     #render template, and add variables to be passed to frontend as arguments
-    return render_template('result.html', artist=artist, album=album, album_id=album_id, price=price, reviews=reviews)
+    return render_template('result.html', artist=artist, album=album, album_id=album_id, price=price, reviews=reviews, url=url)
 
 
 if __name__ == '__main__':

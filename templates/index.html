@@ -24,8 +24,6 @@
       }, (error, result) => {
           if (!error && result && result.event === "success") {
             console.log('Done! Here is the image url: ', result.info.url);
-
-            // 1
             window.location.href = "/result?url=" + result.info.url;
           }
         }
