@@ -1,14 +1,20 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.utils import ChromeType
 from bs4 import BeautifulSoup
 
+GOOGLE_CHROME_BIN = os.environ['GOOGLE_CHROME_BIN']
+CHROME_DRIVER = os.environ['CHROME_DRIVER']
 
-options = webdriver.ChromeOptions()
+options = Options()
+options.binary_location = GOOGLE_CHROME_BIN
 options.add_argument('--ignore-certificate-errors')
 options.add_argument('--incognito')
 options.add_argument('--headless')
-driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install(), options=options)
+options.add_argument('--disable-gpu')
+options.add_argument('--no-sandbox')
+driver = webdriver.Chrome(executable_path=CHROME_DRIVER, options=options)
 
 def get_top3_reviews(artist, album):
     #build URL
