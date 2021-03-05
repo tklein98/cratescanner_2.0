@@ -2,6 +2,17 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 from scripts.price_scraper import get_price
 from scripts.reviews_scraper import get_top3_reviews
 
+from tensorflow.keras.models import Model
+import tensorflow as tf
+import numpy as np
+from crate_scanner.albuminfo import matched_album
+
+# Creating basemodel for vectorization
+vgg16 = tf.keras.applications.VGG16(weights='imagenet', include_top=True, pooling='max', input_shape=(224, 224, 3))
+basemodel = Model(inputs=vgg16.input, outputs=vgg16.get_layer('fc2').output)
+
+# loading images database
+full_vectors = np.load('crate_scanner/data/full_array.npy', allow_pickle=True)
 
 app = Flask(__name__)
 
@@ -14,12 +25,15 @@ def index():
 def display_result():
     url = request.args.get("url")
 
+    # run model 1:artist, 2:album, 3:artist+album, 4: album_id, 5: album_cover
+    album_info = matched_album(url, basemodel, full_vectors)
+
     # run model: retrieve album and artist
-    artist = "red hot chili peppers"
-    album = "by the way"
+    artist = album_info[1]
+    album = album_info[2]
 
     # add spotify widget
-    album_id = "2UJcKiJxNryhL050F5Z1Fk"
+    album_id = album_info[4]
 
     # get price
     price = get_price(artist, album)
