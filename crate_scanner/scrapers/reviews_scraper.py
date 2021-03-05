@@ -29,14 +29,13 @@ def get_top3_reviews(artist, album):
     artist_transformed = artist.replace(" ", "+")
     album_transformed = album.replace(" ", "+")
     url = f"https://www.allmusic.com/search/albums/{artist_transformed}+{album_transformed}"
-
     #retrieve webpage content using Selenium
     driver.get(url)
     page_source = driver.page_source
     soup = BeautifulSoup(page_source, features="lxml")
 
-     # check if results
 
+    # check if results
     if soup.find("ul", class_="search-results"):
         #locate correct album and prepare URL to user reviews
         albums = soup.find_all("li", class_="album")
@@ -64,7 +63,7 @@ def get_top3_reviews(artist, album):
 
         if album_list == []:
             return False
-
+          
         url_2 = album_list[0]
 
         #build url to the reviews page, and retrieve page

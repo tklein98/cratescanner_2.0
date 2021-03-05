@@ -33,10 +33,15 @@ def get_price(artist, album):
             price_stripped = float(price.text.strip('about').strip('total').strip(' ')[1:])
             items.append(price_stripped)
 
+        if items == []:
+            return "no price found"
+
         #find_minimum price
         min_price = min(items)
 
         return min_price
+
+
 
     # if no albums were found
     return "no price found"
