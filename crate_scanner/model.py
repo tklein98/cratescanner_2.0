@@ -11,11 +11,11 @@ import cv2
 import os
 from os import listdir
 from os.path import isfile, join
+## import path to vectors and model ??
 
 
-
+directory_path = 'gs://cratescannerdata/Pictures/'
 LOCAL_PATH = '/home/beres/code/tklein98/crate_scanner/notebooks/test_images'
-
 
 def get_model():
     vgg16 = tf.keras.applications.VGG16(weights='imagenet', include_top=True,\
@@ -42,8 +42,8 @@ def calculate_similarity(vector1, vector2):
 def compare_testing():
     '''compares test images with album cover database and finds the best match'''
     comparisons = []
-    for filename in os.listdir(directory):
-        img = cv2.imread(f'test_images/{filename}')
+    for filename in os.listdir(directory_path):
+        img = cv2.imread(f'{directory_path}/{filename}')[:,:,::-1]
         img1 = get_feature_vector(img)
         comparison = {}
         counter = 0
