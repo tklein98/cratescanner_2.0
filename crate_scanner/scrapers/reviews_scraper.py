@@ -53,11 +53,13 @@ def get_top3_reviews(artist, album):
                         artists.append(element)
 
     #keep only albums with the right album name, and retrieve url
+
     album_list = []
     for element in artists:
         tag = element.find("div", class_="title").find("a")
         if tag.text.lower() == album:
             album_list.append(tag['href'])
+
     url_2 = album_list[0]
 
     #build url to the reviews page, and retrieve page
@@ -78,3 +80,4 @@ def get_top3_reviews(artist, album):
 
     #display top 3 reviews
     return reviews[:2]
+
