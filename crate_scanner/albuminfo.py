@@ -1,4 +1,8 @@
 
+import cv2
+from scipy.spatial import distance
+
+
 
 def get_feature_vector(img, basemodel):
     img1 = cv2.resize(img, (224, 224))
@@ -8,7 +12,9 @@ def get_feature_vector(img, basemodel):
 def calculate_similarity(vector1, vector2):
     return distance.cosine(vector1, vector2)
 
-def matched_album(input_image, basemodel = basemodel, full_vectors = full_vectors):
+
+def matched_album(input_image, basemodel, full_vectors):
+
     img1 = cv2.imread(f"{input_image}")
     f1 = get_feature_vector(img1, basemodel)
     comparison = []
