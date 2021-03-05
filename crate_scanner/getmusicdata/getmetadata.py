@@ -31,3 +31,19 @@ def get_album_by_track_id(track_id):
         return album_search['id']
     else:
         return None
+
+
+def get_track_from_album(album):
+    #Use API search query to extract the first song from the given album_id
+    album_search = spotify.get_tracks_from_album_id(album)["tracks"]
+    if len(album_search) > 0:
+        return album_search['items'][0]["id"]
+    else:
+        return None
+
+
+def get_track_audio_features(track_id):
+    try:
+        return spotify.query_track_audio_features(track_id)
+    except:
+        return None
