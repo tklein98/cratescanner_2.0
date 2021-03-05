@@ -30,8 +30,8 @@ def display_result():
     album_info = matched_album(url, basemodel, full_vectors)
 
     # run model: retrieve album and artist
-    artist = album_info[1]
-    album = album_info[2]
+    artist = album_info[1].lower()
+    album = album_info[2].lower()
 
     # add spotify widget
     album_id = album_info[4]
