@@ -1,21 +1,23 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.utils import ChromeType
 from bs4 import BeautifulSoup
 import os
+import platform
+import phantomjs
 
-GOOGLE_CHROME_BIN = os.environ['GOOGLE_CHROME_BIN']
-CHROME_DRIVER = os.environ['CHROME_DRIVER']
+print(os.environ.get('CLOUDINARY_NAME'))
 
-options = Options()
-options.binary_location = GOOGLE_CHROME_BIN
-options.add_argument('--ignore-certificate-errors')
-options.add_argument('--incognito')
-options.add_argument('--headless')
-options.add_argument('--disable-gpu')
-options.add_argument('--no-sandbox')
-driver = webdriver.Chrome(executable_path=CHROME_DRIVER, options=options)
+options = webdriver.ChromeOptions()
+options.set_headless()
+
+chromedrive_path = '/Users/cha/code/tklein98/crate_scanner/.chromedriver/bin/chromedriver'
+phantom_path = '/Users/cha/code/tklein98/crate_scanner/.chromedriver/bin/phantomjs'
+
+if platform.system() == 'Darwin':
+    driver = webdriver.Chrome(executable_path=chromedrive_path, options=options)
+elif platform.system() == 'Linux':
+    driver = webdriver.PhantomJS(executable_path=phantom_path)
 
 def get_top3_reviews(artist, album):
     #build URL
