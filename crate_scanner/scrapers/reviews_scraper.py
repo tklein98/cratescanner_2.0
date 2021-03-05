@@ -4,7 +4,6 @@ from webdriver_manager.utils import ChromeType
 from bs4 import BeautifulSoup
 import os
 import platform
-import phantomjs
 
 from dotenv import load_dotenv
 from os.path import join, dirname
