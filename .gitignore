@@ -7,3 +7,4 @@ raw_data/
 .env
 crate_scanner/data/*
 notebooks/data/*
+notebooks/
