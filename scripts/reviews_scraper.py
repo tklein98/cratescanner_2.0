@@ -45,7 +45,6 @@ def get_top3_reviews(artist, album):
         if tag.text.lower() == album:
             album_list.append(tag['href'])
     url_2 = album_list[0]
-    print(url_2)
 
     #build url to the reviews page, and retrieve page
     url_reviews = f"{url_2}/user-reviews"
