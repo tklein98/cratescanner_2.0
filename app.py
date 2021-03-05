@@ -1,9 +1,10 @@
 from flask import Flask, flash, request, redirect, url_for, render_template
-from scripts.price_scraper import get_price
-from scripts.reviews_scraper import get_top3_reviews
+from crate_scanner.scrapers.price_scraper import get_price
+from crate_scanner.scrapers.reviews_scraper import get_top3_reviews
 
 
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():

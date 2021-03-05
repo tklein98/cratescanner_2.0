@@ -6,18 +6,24 @@ import os
 import platform
 import phantomjs
 
-print(os.environ.get('CLOUDINARY_NAME'))
+from dotenv import load_dotenv
+from os.path import join, dirname
+from os import environ
+
+
+env_path = join(dirname(dirname(dirname(__file__))), ".env")
+load_dotenv(dotenv_path=env_path)
 
 options = webdriver.ChromeOptions()
 options.set_headless()
 
-chromedrive_path = '/Users/cha/code/tklein98/crate_scanner/.chromedriver/bin/chromedriver'
-phantom_path = '/Users/cha/code/tklein98/crate_scanner/.chromedriver/bin/phantomjs'
+chromedrive_path = environ.get('GOOGLE_CHROME_BIN')
+phantom_path = environ.get('PHANTOM_PATH')
 
 if platform.system() == 'Darwin':
     driver = webdriver.Chrome(executable_path=chromedrive_path, options=options)
 elif platform.system() == 'Linux':
-    driver = webdriver.PhantomJS(executable_path=phantom_path)
+    driver = webdriver.PhantomJS()
 
 def get_top3_reviews(artist, album):
     #build URL
