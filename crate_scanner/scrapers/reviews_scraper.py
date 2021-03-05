@@ -22,7 +22,7 @@ phantom_path = environ.get('PHANTOM_PATH')
 if platform.system() == 'Darwin':
     driver = webdriver.Chrome(executable_path=chromedrive_path, options=options)
 elif platform.system() == 'Linux':
-    driver = webdriver.PhantomJS()
+    driver = webdriver.PhantomJS(executable_path=PhantomJS)
 
 def get_top3_reviews(artist, album):
     #build URL
