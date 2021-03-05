@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.utils import ChromeType
 from bs4 import BeautifulSoup
+import os
 
 GOOGLE_CHROME_BIN = os.environ['GOOGLE_CHROME_BIN']
 CHROME_DRIVER = os.environ['CHROME_DRIVER']
