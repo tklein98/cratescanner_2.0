@@ -9,8 +9,7 @@ numpy
 pandas
 scikit-learn
 opencv-python
-tensorflow.keras.models
-tensorflow.keras.applications
+tensorflow
 
 # tests/linter
 black
