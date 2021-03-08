@@ -12,7 +12,7 @@ def album_recommender(album_dataset, recommender_output_path):
 
     non_numerical_cols = ['artists','album_cover', 'album_name', 'album_id', 'first_track_id', 'album', 'loudness']
     X = recommender_dataset.drop(columns=non_numerical_cols).copy()
-
+    import ipdb; ipdb.set_trace()
     # Define y's through specific features
     y_tempo = X['tempo']
 
