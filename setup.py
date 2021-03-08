@@ -19,5 +19,5 @@ setup(name='crate_scanner',
       test_suite='tests',
       # include_package_data: to install data from MANIFEST.in
       include_package_data=True,
-      scripts=['scripts/crate_scanner-run'],
+      scripts=['scripts/crate_scanner-run','scripts/download_data'],
       zip_safe=False)
