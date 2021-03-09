@@ -17,12 +17,8 @@ options = webdriver.ChromeOptions()
 options.set_headless()
 
 chromedrive_path = environ.get('GOOGLE_CHROME_BIN')
-phantom_path = environ.get('PHANTOM_PATH')
 
-if platform.system() == 'Darwin':
-    driver = webdriver.Chrome(executable_path=chromedrive_path, options=options)
-elif platform.system() == 'Linux':
-    driver = webdriver.PhantomJS()
+driver = webdriver.Chrome(executable_path=chromedrive_path, options=options)
 
 def get_top3_reviews(artist, album):
     #build URL
@@ -63,7 +59,7 @@ def get_top3_reviews(artist, album):
 
         if album_list == []:
             return False
-          
+
         url_2 = album_list[0]
 
         #build url to the reviews page, and retrieve page
