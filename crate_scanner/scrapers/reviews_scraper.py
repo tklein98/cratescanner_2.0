@@ -14,11 +14,16 @@ env_path = join(dirname(dirname(dirname(__file__))), ".env")
 load_dotenv(dotenv_path=env_path)
 
 options = webdriver.ChromeOptions()
-options.set_headless()
+
+options.add_argument('--no-sandbox')
+options.add_argument('--window-size=1420,1080')
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
 
 chromedrive_path = environ.get('GOOGLE_CHROME_BIN')
 
 driver = webdriver.Chrome(executable_path=chromedrive_path, options=options)
+
 
 def get_top3_reviews(artist, album):
     #build URL
