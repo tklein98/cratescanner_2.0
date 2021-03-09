@@ -22,6 +22,7 @@ options.add_argument('--disable-gpu')
 
 chromedrive_path = environ.get('GOOGLE_CHROME_BIN')
 
+
 # phantom_path = '.chromedriver/bin/phantomjs'
 
 # '/usr/local/bin/'
@@ -31,6 +32,7 @@ chromedrive_path = environ.get('GOOGLE_CHROME_BIN')
 driver = webdriver.Chrome(options=options)
 # elif platform.system() == 'Linux':
 #     driver = webdriver.PhantomJS(executable_path='.chromedriver/bin/phantomjs', options=options)
+
 
 def get_top3_reviews(artist, album):
     #build URL
