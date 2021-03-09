@@ -58,12 +58,11 @@
    </style>
   </head>
   <body>
-    <div id="spinner-overlay">
-      <!-- spinner shit -->
+    <div id="spinner-overlay" >
+      <img style="width: 100%" src="{{url_for('static',filename = 'vinyl.gif')}}" >
     </div>
     <div class="containerresult" id="contents">
       <div class="album-profile">
-        <!-- <image src={{cover_url}} width="150" height="150"> -->
         <div style="margin-left: 10px;">
           <h1 id="artist" style= "font-size: 20px; font-weight: bold; margin: 0px;">placeholder Artist</h1>
           <h3 id="album" style= "font-size: 15px; font-weight: normal;">placeholder Artist</h3>
@@ -72,7 +71,6 @@
       </div>
       <div id="spotify-widget">
          <p style= "font-size: 20px; font-weight: normal;">Listen to some songs</p>
-        <!-- <iframe src="https://open.spotify.com/embed/album/{{album_id}}" height="400" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe> -->
       </div>
       <div class="reviews">
         <p style= "font-size: 20px;">Reviews</p>
