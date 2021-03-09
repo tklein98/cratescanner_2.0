@@ -44,34 +44,99 @@
         display: flex;
         justify-content: center;
       }
+
+      #spinner-overlay {
+        background-color: black;
+        z-index: 999;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
    </style>
   </head>
   <body>
-    <div class="containerresult">
+    <div id="spinner-overlay" >
+      <img style="width: 100%" src="{{url_for('static',filename = 'vinyl.gif')}}" >
+    </div>
+    <div class="containerresult" id="contents">
       <div class="album-profile">
-        <image src={{cover_url}} width="150" height="150">
         <div style="margin-left: 10px;">
-          <h1 style= "font-size: 20px; font-weight: bold; margin: 0px;">{{artist.title()}}</h1>
-          <h3 style= "font-size: 15px; font-weight: normal;">{{album.title()}}</h3>
-          <p style= "font-size: 15px; font-weight: lighter;">{{price}}€</p>
+          <h1 id="artist" style= "font-size: 20px; font-weight: bold; margin: 0px;">placeholder Artist</h1>
+          <h3 id="album" style= "font-size: 15px; font-weight: normal;">placeholder Artist</h3>
+          <p id="price" style= "font-size: 15px; font-weight: lighter;">placeholder Artis</p>
         </div>
       </div>
-      <div>
+      <div id="spotify-widget">
          <p style= "font-size: 20px; font-weight: normal;">Listen to some songs</p>
-        <iframe src="https://open.spotify.com/embed/album/{{album_id}}" height="400" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
       </div>
       <div class="reviews">
         <p style= "font-size: 20px;">Reviews</p>
-        {% if reviews:%}
-          {% for review in reviews %}
-          <p style="font-weight: lighter; font-size: 14px"> {{review}}</p>
-          {%endfor%}
-        {%else%}
-          <p style="font-weight: lighter;"> No reviews found.</p>
-        {%endif%}
+        <div class="reviews-wrapper"></div>
       </div>
       <div class="center"><button href="/">Scan another Vinyl</button></div>
+
+
     </div>
+
+    <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script>
+        console.log("api call dispatched");
+        jQuery.ajax({
+        method: 'GET',
+        url: '/album-api/?url={{url}}',
+        error: function (xhr, status, err) {
+          console.log("api error");
+
+          ajaxBusy = false;
+        },
+        success: function (res) {
+          console.log("api success")
+          console.log(res);
+
+          ajaxBusy = false;
+
+          populateData(res);
+        }});
+      </script>
+
+      <script>
+        function populateData(res) {
+
+          // populate album info
+          jQuery('#artist').html(res.artist);
+          jQuery('#album').html(res.album);
+          jQuery('#price').html(res.price + " €");
+
+          // Insert album art at beginning of .album-profile
+          jQuery('.album-profile').prepend('<image src="' + res.cover_url + '" width="150" height="150">');
+
+          // populate album reviews
+          if(res.reviews.length === 0) {
+            jQuery('.album-profile').prepend('<p style="font-weight: lighter; font-size: 14px">' + 'No reviews found.' + '</p>');
+          }
+
+          for(var i in res.reviews) {
+            var reviewText = res.reviews[i];
+
+            jQuery('.reviews-wrapper').prepend('<p style="font-weight: lighter; font-size: 14px">' + reviewText + '</p>');
+
+          }
+
+          // Spotify widdget
+          jQuery('#spotify-widget').append('<iframe src="https://open.spotify.com/embed/album/' + res.album_id + '" height="400" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>');
+
+          // Hide Spinner overlay once data is loaded
+          jQuery('#spinner-overlay').fadeOut();
+        }
+
+      </script>
   </body>
 
 </html>

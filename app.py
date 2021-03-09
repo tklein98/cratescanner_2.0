@@ -6,6 +6,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.applications import VGG16
 import numpy as np
 from crate_scanner.albuminfo import matched_album
+import json
 
 # Creating basemodel for vectorization
 vgg16 = VGG16(weights='imagenet', include_top=True, pooling='max', input_shape=(224, 224, 3))
@@ -24,10 +25,11 @@ app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 def index():
     return render_template('index.html')
 
-
-@app.route('/result/', methods=['GET'])
-def display_result():
+@app.route('/album-api/', methods=['GET'])
+def return_data():
     url = request.args.get("url")
+
+    print(url)
 
     # run model 1:artist, 2:album, 3:artist+album, 4: album_id, 5: album_cover
     album_info = matched_album(url, basemodel, full_vectors)
@@ -46,10 +48,30 @@ def display_result():
     # get reviews
     reviews = get_top3_reviews(artist, album)
 
-    # get album recommendations
+    data = {
+      "artist": artist.title(),
+      "album": album.title(),
+      "cover_url": cover_url,
+      "album_id": album_id,
+      "price": price,
+      "reviews": reviews
+    }
 
-    #render template, and add variables to be passed to frontend as arguments
-    return render_template('result.html', artist=artist, album=album, album_id=album_id, price=price, reviews=reviews, url=url, cover_url=cover_url)
+    response = app.response_class(
+        response = json.dumps(data),
+        status=200,
+        mimetype='application/json'
+        )
+
+    return response
+
+
+
+@app.route('/result/', methods=['GET'])
+def display_result():
+    url = request.args.get("url")
+
+    return render_template('result.html', url=url)
 
 
 if __name__ == '__main__':
