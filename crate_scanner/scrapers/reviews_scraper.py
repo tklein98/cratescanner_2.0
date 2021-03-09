@@ -14,15 +14,25 @@ env_path = join(dirname(dirname(dirname(__file__))), ".env")
 load_dotenv(dotenv_path=env_path)
 
 options = webdriver.ChromeOptions()
-options.set_headless()
+
+options.add_argument('--no-sandbox')
+options.add_argument('--window-size=1420,1080')
+options.add_argument('--headless')
+options.add_argument('--disable-gpu')
 
 chromedrive_path = environ.get('GOOGLE_CHROME_BIN')
-phantom_path = environ.get('PHANTOM_PATH')
 
-if platform.system() == 'Darwin':
-    driver = webdriver.Chrome(executable_path=chromedrive_path, options=options)
-elif platform.system() == 'Linux':
-    driver = webdriver.PhantomJS(executable_path=PhantomJS)
+
+# phantom_path = '.chromedriver/bin/phantomjs'
+
+# '/usr/local/bin/'
+# executable_path='/usr/local/bin/',
+
+# if platform.system() == 'Darwin':
+driver = webdriver.Chrome(options=options)
+# elif platform.system() == 'Linux':
+#     driver = webdriver.PhantomJS(executable_path='.chromedriver/bin/phantomjs', options=options)
+
 
 def get_top3_reviews(artist, album):
     #build URL
@@ -63,7 +73,7 @@ def get_top3_reviews(artist, album):
 
         if album_list == []:
             return False
-          
+
         url_2 = album_list[0]
 
         #build url to the reviews page, and retrieve page
