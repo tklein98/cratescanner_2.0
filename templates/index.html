@@ -3,51 +3,17 @@
 <html lang="en">
   <head>
       <!-- <meta charset="UTF-8"> -->
-      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+      <link rel="stylesheet" href="{{ url_for('static', filename= 'css/index.css') }}">
       <link rel="preconnect" href="https://fonts.gstatic.com">
-      <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;300;400;600;700&display=swap" rel="stylesheet">
       <title>Crate Scanner</title>
-      <style>
-        body {
-          background-color: black;
-          color: white;
-        }
-
-        div.container {
-          font-family: 'Roboto Mono';
-          display: flex;
-          align-items: center;
-          flex-direction: column;
-          height: 100vh;
-          justify-content: center;
-        }
-
-        h1 {
-          font-size: 5em;
-          margin: 10px;
-        }
-
-        h2 {
-          margin: 0px;
-          font-size: 3em;
-          font-weight: lighter;
-        }
-
-        button#upload_widget.cloudinary-button {
-          border-radius: 50px;
-          background-color: #E8A000;
-          font-size: 40px;
-          padding: 25px 40px;
-          margin-top: 50px;
-          font-family: 'Roboto Mono';
-
-        }
-
-      </style>
   </head>
 
   <body>
     <div class="container">
+       <div>
+        <image style="height: 300px; margin-bottom:175px" src="{{url_for('static',filename = 'logo.png')}}" >
+      </div>
       <h1>Crate Scanner</h1>
       <h2>VINYL RECOGNITION</h2>
 
@@ -72,9 +38,6 @@
             myWidget.open();
           }, false);
       </script>
-      <div>
-        <image src="{{url_for('static',filename = 'logo.png')}}" >
-      </div>
     </div>
   </body>
 </html>

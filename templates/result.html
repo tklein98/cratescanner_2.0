@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en", style="display:flex;">
   <head>
-      <meta charset="UTF-8">
-<!--       <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
- -->  <title>Crate Scanner</title>
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-      <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
-   <style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/index.css') }}">
+    <title>Crate Scanner</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+    <style>
       body {
           background-color: black;
           color: white;
         }
-      div.container {
+      div.containerresult {
             font-family: 'Roboto Mono';
             display: flex;
             flex-direction: column;
-            height: 100vh;
             margin: 4vh;
           }
 
       div.album-profile {
         display: flex;
-        width: 80%;
-        justify-content: space-between;
       }
 
       div.reviews {
         width: 80%;
-        font-size: 2em;
+        font-size: 1em;
       }
 
       button {
         border-radius: 50px;
         background-color: #E8A000;
-        font-size: 40px;
+        font-size: 16px;
         margin-top: 50px;
         font-family: 'Roboto Mono';
         width: 35vh;
@@ -42,31 +40,37 @@
         padding: 10px 20px;
       }
 
+      div.center {
+        display: flex;
+        justify-content: center;
+      }
    </style>
   </head>
   <body>
-    <div class="container">
+    <div class="containerresult">
       <div class="album-profile">
-        <div>
-          <h1 style= "font-size: 4em">{{artist.title()}}</h1>
-          <h3 style= "font-size: 3em">{{album.title()}}</h3>
-          <p style= "font-size: 2em">{{price}}€</p>
+        <image src={{cover_url}} width="150" height="150">
+        <div style="margin-left: 10px;">
+          <h1 style= "font-size: 20px; font-weight: bold; margin: 0px;">{{artist.title()}}</h1>
+          <h3 style= "font-size: 15px; font-weight: normal;">{{album.title()}}</h3>
+          <p style= "font-size: 15px; font-weight: lighter;">{{price}}€</p>
         </div>
       </div>
       <div>
-        <iframe src="https://open.spotify.com/embed/album/{{album_id}}" width="500" height="800" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+         <p style= "font-size: 20px; font-weight: normal;">Listen to some songs</p>
+        <iframe src="https://open.spotify.com/embed/album/{{album_id}}" height="400" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
       </div>
       <div class="reviews">
-        <p>Reviews</p>
+        <p style= "font-size: 20px;">Reviews</p>
         {% if reviews:%}
           {% for review in reviews %}
-          <p> {{review}}</p>
+          <p style="font-weight: lighter; font-size: 14px"> {{review}}</p>
           {%endfor%}
         {%else%}
-          <p> No reviews found.</p>
+          <p style="font-weight: lighter;"> No reviews found.</p>
         {%endif%}
       </div>
-      <div style= "display: flex;justify-content: center; "><button href="/">Scan another Vinyl</button></div>
+      <div class="center"><button href="/">Scan another Vinyl</button></div>
     </div>
   </body>
 

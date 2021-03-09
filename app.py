@@ -12,7 +12,7 @@ vgg16 = VGG16(weights='imagenet', include_top=True, pooling='max', input_shape=(
 basemodel = Model(inputs=vgg16.input, outputs=vgg16.get_layer('fc2').output)
 
 TEMPLATE_DIR = os.path.abspath('templates')
-STATIC_DIR = os.path.abspath('../static')
+STATIC_DIR = os.path.abspath('static')
 
 # loading images database
 full_vectors = np.load('crate_scanner/data/full_array.npy', allow_pickle=True)
@@ -32,9 +32,10 @@ def display_result():
     # run model 1:artist, 2:album, 3:artist+album, 4: album_id, 5: album_cover
     album_info = matched_album(url, basemodel, full_vectors)
 
-    # run model: retrieve album and artist
+    # run model: retrieve album, artist and cover
     artist = album_info[1].lower()
     album = album_info[2].lower()
+    cover_url = album_info[5]
 
     # add spotify widget
     album_id = album_info[4]
@@ -43,13 +44,12 @@ def display_result():
     price = get_price(artist, album)
 
     # get reviews
-
     reviews = get_top3_reviews(artist, album)
 
     # get album recommendations
 
     #render template, and add variables to be passed to frontend as arguments
-    return render_template('result.html', artist=artist, album=album, album_id=album_id, price=price, reviews=reviews, url=url)
+    return render_template('result.html', artist=artist, album=album, album_id=album_id, price=price, reviews=reviews, url=url, cover_url=cover_url)
 
 
 if __name__ == '__main__':
