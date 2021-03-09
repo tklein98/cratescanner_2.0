@@ -6,10 +6,10 @@ wheel>=0.29
 
 # data science
 numpy
-# pandas
-# scikit-learn
+pandas
+scikit-learn
 opencv-python
-# tensorflow
+tensorflow
 
 # tests/linter
 black

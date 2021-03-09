@@ -24,10 +24,11 @@ chromedrive_path = environ.get('GOOGLE_CHROME_BIN')
 
 # phantom_path = '.chromedriver/bin/phantomjs'
 
-'/usr/local/bin/'
+# '/usr/local/bin/'
+# executable_path='/usr/local/bin/',
 
 # if platform.system() == 'Darwin':
-driver = webdriver.Chrome(executable_path='/usr/local/bin/', options=options)
+driver = webdriver.Chrome(options=options)
 # elif platform.system() == 'Linux':
 #     driver = webdriver.PhantomJS(executable_path='.chromedriver/bin/phantomjs', options=options)
 

@@ -22,6 +22,8 @@ RUN apt-get install -yqq unzip
 RUN wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
 RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 
+RUN chmod +rwx /usr/local/bin/
+
 # set display port to avoid crash
 ENV DISPLAY=:99
 
@@ -29,6 +31,8 @@ ENV DISPLAY=:99
 RUN pip install selenium==3.8.0
 
 RUN pip install -r requirements.txt
+
+ENV PORT = 5000
 
 ENTRYPOINT [ "python" ]
 
