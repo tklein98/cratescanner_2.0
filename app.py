@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 from crate_scanner.scrapers.price_scraper import get_price
 from crate_scanner.scrapers.reviews_scraper import get_top3_reviews
-
+import os
 from tensorflow.keras.models import Model
 from tensorflow.keras.applications import VGG16
 import numpy as np
@@ -11,10 +11,13 @@ from crate_scanner.albuminfo import matched_album
 vgg16 = VGG16(weights='imagenet', include_top=True, pooling='max', input_shape=(224, 224, 3))
 basemodel = Model(inputs=vgg16.input, outputs=vgg16.get_layer('fc2').output)
 
+TEMPLATE_DIR = os.path.abspath('templates')
+STATIC_DIR = os.path.abspath('../static')
+
 # loading images database
 full_vectors = np.load('crate_scanner/data/full_array.npy', allow_pickle=True)
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
 
 @app.route('/')
@@ -42,6 +45,8 @@ def display_result():
     # get reviews
 
     reviews = get_top3_reviews(artist, album)
+
+    # get album recommendations
 
     #render template, and add variables to be passed to frontend as arguments
     return render_template('result.html', artist=artist, album=album, album_id=album_id, price=price, reviews=reviews, url=url)
