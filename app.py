@@ -7,6 +7,7 @@ from tensorflow.keras.applications import VGG16
 import numpy as np
 from crate_scanner.albuminfo import matched_album
 import json
+import argparse
 
 # Creating basemodel for vectorization
 vgg16 = VGG16(weights='imagenet', include_top=True, pooling='max', input_shape=(224, 224, 3))
@@ -75,4 +76,8 @@ def display_result():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--port", type = int, default=80, help="Number of the port")
+    parser.add_argument("--host", type = str, default='0.0.0.0', help="host url/adress")
+    args = parser.parse_args()
+    app.run(host=args.host, port=args.port)
