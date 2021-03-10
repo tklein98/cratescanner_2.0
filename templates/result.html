@@ -70,6 +70,21 @@
         }
       }
 
+      p.sliced {
+        width: 80vw;
+        overflow: hidden;
+        /*white-space: nowrap;*/
+        height: 55px;
+        text-overflow: ellipsis;
+      }
+
+      .read-more-button {
+        font-family: 'Roboto Mono';
+        background: none;
+        border: none;
+        color: white;
+      }
+
    </style>
   </head>
   <body>
@@ -186,8 +201,7 @@
           for(var i in res.reviews) {
             var reviewText = res.reviews[i];
 
-            jQuery('.reviews-wrapper').prepend('<p style="font-weight: lighter; font-size: 14px">' + reviewText + '</p>');
-
+            jQuery('.reviews-wrapper').prepend('<p class="sliced" id="toggle-' + i + '" style="font-weight: lighter; font-size: 14px">' + reviewText + '</p> <button class="read-more-button" id="read-more-' + i + '"> Read More </button>');
           }
 
           // Spotify widdget
@@ -195,8 +209,35 @@
 
           // Hide Spinner overlay once data is loaded
           jQuery('#spinner-overlay').fadeOut();
-        }
 
+          function readClass (textEl, readMorEl) {
+            if(textEl.className.indexOf("sliced") === -1) {
+              readMorEl.innerHTML = "Read less";
+            } else {
+              readMorEl.innerHTML = "Read more";
+            }
+
+
+
+          }
+
+          function readMoreFunction() {
+            var readMore1 = document.getElementById('read-more-0');
+            var toggleText1 = document.getElementById('toggle-0');
+            var readMore2 = document.getElementById('read-more-1');
+            var toggleText2 = document.getElementById('toggle-1');
+            readMore1.addEventListener('click', () => {
+                toggleText1.classList.toggle('sliced');
+                readClass(toggleText1, readMore1);
+            });
+            readMore2.addEventListener('click', () => {
+                toggleText2.classList.toggle('sliced');
+                readClass(toggleText2, readMore2);
+            });
+          }
+
+          readMoreFunction();
+        }
       </script>
   </body>
 
