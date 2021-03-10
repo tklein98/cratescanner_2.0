@@ -12,6 +12,7 @@
       body {
           background-color: black;
           color: white;
+          font-family: 'Roboto Mono';
         }
       div.containerresult {
             font-family: 'Roboto Mono';
@@ -55,18 +56,30 @@
         height: 100%;
       }
 
+      span {
+        border-right: .05em solid;
+        animation: caret 1s steps(1) infinite;
+      }
+
+      @keyframes caret {
+        50% {
+          border-color: transparent;
+        }
+      }
+
    </style>
   </head>
   <body>
     <div id="spinner-overlay" >
-      <img style="width: 100%" src="{{url_for('static',filename = 'vinyl.gif')}}" >
+      <img style="width: 100%" src="{{url_for('static',filename = 'vinyl-infinite-loop.gif')}}" >
+      <h1 style="font-size: 20px; display: flex; justify-content: center;"></h1>
     </div>
     <div class="containerresult" id="contents">
       <div class="album-profile">
         <div style="margin-left: 10px;">
           <h1 id="artist" style= "font-size: 20px; font-weight: bold; margin: 0px;">placeholder Artist</h1>
-          <h3 id="album" style= "font-size: 15px; font-weight: normal;">placeholder Artist</h3>
-          <p id="price" style= "font-size: 15px; font-weight: lighter;">placeholder Artis</p>
+          <h3 id="album" style= "font-size: 15px; font-weight: normal;">placeholder Album</h3>
+          <p id="price" style= "font-size: 15px; font-weight: lighter;">placeholder Price</p>
         </div>
       </div>
       <div id="spotify-widget">
@@ -81,10 +94,55 @@
 
     </div>
 
+    <script>
+      document.addEventListener('DOMContentLoaded',function(event){
+        // array with texts to type in typewriter
+        var dataText = [ "Analyzing album cover...", "Retrieving artist name...", "Retrieving album name...", "Creating Spotify playlist...", "Finding best price...", "Finding top reviews...", "Recommending albums..."];
+
+        // type one text in the typwriter
+        // keeps calling itself until the text is finished
+        function typeWriter(text, i, fnCallback) {
+          // chekc if text isn't finished yet
+          if (i < (text.length)) {
+            // add next character to h1
+           document.querySelector("h1").innerHTML = text.substring(0, i+1) +'<span aria-hidden="true"></span>';
+
+            // wait for a while and call this function again for next character
+            setTimeout(function() {
+              typeWriter(text, i + 1, fnCallback)
+            }, 100);
+          }
+          // text finished, call callback if there is a callback function
+          else if (typeof fnCallback == 'function') {
+            // call callback after timeout
+            setTimeout(fnCallback, 700);
+          }
+        }
+        // start a typewriter animation for a text in the dataText array
+         function StartTextAnimation(i) {
+           if (typeof dataText[i] == 'undefined'){
+              setTimeout(function() {
+                StartTextAnimation(0);
+              }, 20000);
+           }
+           // check if dataText[i] exists
+          if (i < dataText[i].length) {
+            // text exists! start typewriter animation
+           typeWriter(dataText[i], 0, function(){
+             // after callback (and whole text has been animated), start next text
+             StartTextAnimation(i + 1);
+           });
+          }
+        }
+        // start the text animation
+        StartTextAnimation(0);
+      });
+    </script>
     <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous">
+     </script>
 
   <script>
         console.log("api call dispatched");

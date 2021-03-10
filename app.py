@@ -28,9 +28,6 @@ def index():
 @app.route('/album-api/', methods=['GET'])
 def return_data():
     url = request.args.get("url")
-
-    print(url)
-
     # run model 1:artist, 2:album, 3:artist+album, 4: album_id, 5: album_cover
     album_info = matched_album(url, basemodel, full_vectors)
 
