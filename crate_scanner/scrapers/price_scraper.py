@@ -27,19 +27,37 @@ def get_price(artist, album):
         response_3 = requests.get(link)
         soup = BeautifulSoup(response_3.content, "html.parser")
 
+        #retrieve all listings
+        listings = soup.find_all("tr", class_="shortcut_navigable")
+
         # retrieve all total prices
         items = []
-        for price in soup.find_all("span", class_="converted_price"):
-            price_stripped = float(price.text.strip('about').strip('total').strip(' ').replace('€', ''))
-            items.append(price_stripped)
+        for listing in listings:
+            if listing.find("span", class_="converted_price"):
+                price = listing.find("span", class_="converted_price")
+                price_stripped = float(price.text.strip('about').strip('total').strip(' ').replace('€', ''))
+                items.append(price_stripped)
 
         if items == []:
             return "no price found"
 
         #find_minimum price
         min_price = min(items)
+        min_price_index = items.index(min_price)
 
-        return min_price
+        all_urls = []
+
+
+        for listing in listings:
+            if listing.find("span", class_="converted_price"):
+                tag = listing.find("a")
+                url = tag['href']
+                all_urls.append(url)
+
+        url_min_price = f"https://www.discogs.com/{all_urls[min_price_index]}"
+
+
+        return [url_min_price, min_price]
 
 
 
