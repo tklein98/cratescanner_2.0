@@ -24,6 +24,7 @@ chromedrive_path = environ.get('GOOGLE_CHROME_BIN')
 
 driver = webdriver.Chrome(options=options)
 
+
 def get_top3_reviews(artist, album):
     #build URL
     artist_transformed = artist.replace(" ", "+")

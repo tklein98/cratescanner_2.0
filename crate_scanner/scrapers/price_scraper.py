@@ -30,7 +30,7 @@ def get_price(artist, album):
         # retrieve all prices
         items = []
         for price in soup.find_all("span", class_="converted_price"):
-            price_stripped = float(price.text.strip('about').strip('total').strip(' ')[1:])
+            price_stripped = float(price.text.strip('about').strip('total').strip(' ').replace('€', ''))
             items.append(price_stripped)
 
         if items == []:
