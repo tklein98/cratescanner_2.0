@@ -32,8 +32,8 @@ RUN pip install selenium==3.8.0
 
 RUN pip install -r requirements.txt
 
-ENV PORT = 5000
+# ENV PORT = 5000
 
-ENTRYPOINT [ "python" ]
+# ENTRYPOINT [ "python" ]
 
-CMD [ "app.py" ] --host 0.0.0.0 --port $PORT
+CMD python app.py --host 0.0.0.0 --port $PORT
