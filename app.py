@@ -41,7 +41,8 @@ def return_data():
     album_id = album_info[4]
 
     # get price
-    price = get_price(artist, album)
+    price = get_price(artist, album)[1]
+    url_price = get_price(artist, album)[0]
 
     # get reviews
     reviews = get_top3_reviews(artist, album)
@@ -50,6 +51,7 @@ def return_data():
       "artist": artist.title(),
       "album": album.title(),
       "cover_url": cover_url,
+      "url_price": url_price,
       "album_id": album_id,
       "price": price,
       "reviews": reviews
