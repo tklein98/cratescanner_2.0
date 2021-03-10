@@ -27,10 +27,10 @@ def get_price(artist, album):
         response_3 = requests.get(link)
         soup = BeautifulSoup(response_3.content, "html.parser")
 
-        # retrieve all prices
+        # retrieve all total prices
         items = []
         for price in soup.find_all("span", class_="converted_price"):
-            price_stripped = float(price.text.strip('about').strip('total').strip(' ')[1:])
+            price_stripped = float(price.text.strip('about').strip('total').strip(' ').replace('€', ''))
             items.append(price_stripped)
 
         if items == []:
