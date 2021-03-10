@@ -22,8 +22,7 @@ options.add_argument('--disable-gpu')
 
 chromedrive_path = environ.get('GOOGLE_CHROME_BIN')
 
-driver = webdriver.Chrome(executable_path=chromedrive_path, options=options)
-
+driver = webdriver.Chrome(options=options)
 
 def get_top3_reviews(artist, album):
     #build URL
