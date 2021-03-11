@@ -1,12 +1,13 @@
  #!/usr/bin/python3
 
-#MOVE TO MAIN FOLDER
+
 import pandas as pd
 from crate_scanner.getmusicdata.dataprocessing import *
 from crate_scanner.getmusicdata.getmetadata import *
+from crate_scanner.getmusicdata.recommender import album_recommender
 
 
-def get_album_metadata(input_file, input_file_2, nrows, skiprows, album_output_file):
+def get_album_metadata(input_file, input_file_2, nrows, skiprows):
 
     # Reads and ammends files from "https://www.besteveralbums.com/"
     # Read data file into dataframe
@@ -53,41 +54,33 @@ def get_album_metadata(input_file, input_file_2, nrows, skiprows, album_output_f
     # #Concatenate the two dataframes into one
     album_dataset = pd.concat([input_df, input_df_2], ignore_index=True)
 
-    # Remove incorrect data input
-    # album_dataset = album_dataset[~album_dataset.artists.str.contains("artists")]
+    # Add a column with the first track based on album_id
+    album_dataset["first_track_id"]=album_dataset["album_id"].map(get_track_from_album)
+
+    # Create a series with audio features (as dicts{}) for each song
+    music_features = album_dataset["first_track_id"].map(get_track_audio_features)
+    # Create a dataframe with audio features
+    music_features_df = pd.DataFrame(list(music_features), columns=["danceability", "energy", "key", "loudness", "mode", "speechiness", "acousticness", "instrumentalness", "liveness", "valence", "tempo"])
+
+    # Horizontally concatenate the album_id_df with the music features df
+    album_dataset = pd.concat([album_dataset, music_features_df], axis=1)
 
     # # Drop duplicates and rows with none values in the album_id column
     album_dataset = album_dataset.dropna(axis=0, subset=['album_id'])
     album_dataset.drop_duplicates(subset=['album_id'], inplace=True)
+    album_dataset.reset_index(drop=True, inplace=True)
 
-    # Write result as csv to a file path
-    album_dataset.to_csv(album_output_file, index=False)
-
-
-def get_song_metadata(input_file, nrows, skiprows, song_output_file):
-
-    # Read Kaggle "Spotify Dataset 1921-2020, 160k+ Tracks" metadata into a dataframe
-    input_df = pd.read_csv(input_file, skiprows = range(1,skiprows), nrows = nrows)
-
-    # Call the Spotify API to extract the correct albumn_id based on track_id and make it in a new column
-    input_df["album_id"] = input_df["id"].map(get_album_by_track_id)
-
-    # Save file as csv
-    input_df.to_csv(song_output_file, index=False)
+    return album_dataset
 
 
-if __name__ == "__main__":
-    # execute only if run as a script
-    local_path = "/Users/wesleyhouse/code/WesH0use/crate_scanner/notebooks/data/data.csv"
-    get_song_metadata(local_path, nrows=5, skiprows=1000)
+# def get_song_metadata(input_file, nrows, skiprows, song_output_file):
 
-    # Returns dataframe with 5 rows
-    #return input_df
+#     # Read Kaggle "Spotify Dataset 1921-2020, 160k+ Tracks" metadata into a dataframe
+#     input_df = pd.read_csv(input_file, skiprows = range(1,skiprows), nrows = nrows)
 
+#     # Call the Spotify API to extract the correct albumn_id based on track_id and make it in a new column
+#     input_df["album_id"] = input_df["id"].map(get_album_by_track_id)
 
-
-
-
-
-
+#     # Save file as csv
+#     input_df.to_csv(song_output_file, index=False)
 

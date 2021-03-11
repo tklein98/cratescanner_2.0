@@ -1,10 +1,9 @@
-# MOVE TO SPOTIFY FOLDER
-
-import requests
 import datetime
 from urllib.parse import urlencode
 import base64
+import requests
 from IPython.core.display import HTML
+
 
 class SpotifyAPI(object):
     access_token = None
@@ -87,9 +86,28 @@ class SpotifyAPI(object):
             return {}
         return r.json()
 
-    def get_track_by_id(self, _id):
+    def get_track_info_by_id(self, _id):
         headers = self.get_resource_header()
         endpoint = "https://api.spotify.com/v1/tracks"
+        lookup_url = f"{endpoint}/{_id}"
+        r = requests.get(lookup_url, headers=headers)
+        if r.status_code not in range(200, 299):
+            return {}
+        return r.json()
+
+    def get_tracks_from_album_id(self, _id):
+        headers = self.get_resource_header()
+        endpoint = "https://api.spotify.com/v1/albums"
+        lookup_url = f"{endpoint}/{_id}"
+        r = requests.get(lookup_url, headers=headers)
+        if r.status_code not in range(200, 299):
+            return {}
+        return r.json()
+
+    def query_track_audio_features(self, _id):
+        # Use the Spotify API call to retreive audio features based on track_id
+        headers = self.get_resource_header()
+        endpoint = "https://api.spotify.com/v1/audio-features"
         lookup_url = f"{endpoint}/{_id}"
         r = requests.get(lookup_url, headers=headers)
         if r.status_code not in range(200, 299):
