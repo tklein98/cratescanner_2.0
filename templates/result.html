@@ -106,11 +106,12 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        font-size: 11px;
       }
 
       #recommended-albums {
         display: flex;
-        justify-conten
+        justify-content: space-around;
       }
 
    </style>
@@ -129,13 +130,13 @@
         </div>
       </div>
       <div id="spotify-widget">
-         <p style= "font-size: 20px; font-weight: normal;">Listen to some songs</p>
+         <p style= "margin-top: 5vh; font-size: 20px; font-weight: normal;">Listen to some songs</p>
       </div>
       <div class="reviews">
-        <p style= "font-size: 20px;">Reviews</p>
+        <p style= "text-decoration: underline; margin-top: 5vh; font-size: 20px;">Reviews</p>
         <div class="reviews-wrapper"></div>
       </div>
-      <p style= "font-size: 20px; font-weight: normal;">you may also like..</p>
+      <p style= "text-decoration: underline; font-size: 20px; font-weight: normal;">Similar albums</p>
       <div id="recommended-albums">
       </div>
       <div class="center"><a id ="homepage" href="/">Scan another Vinyl</a></div>
@@ -187,7 +188,7 @@
         StartTextAnimation(0);
       });
     </script>
-    <script>
+    <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous">
@@ -240,9 +241,9 @@
           jQuery('#spotify-widget').append('<iframe src="https://open.spotify.com/embed/album/' + res.album_id + '" height="400" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>');
 
           // Recommended albums
-          jQuery('#recommended-albums').append('<div class="recommended-albums"><image src="' + res.cover_url + '" width="50" height="50"><p>1artist name</p><p>album</p></div>');
-          jQuery('#recommended-albums').append('<div class="recommended-albums"><image src="' + res.cover_url + '" width="50" height="50"><p>2artist name</p><p>album></p></div>');
-          jQuery('#recommended-albums').append('<div class="recommended-albums"><image src="' + res.cover_url + '" width="50" height="50"><p>3artist name</p><p>album></p></div>');
+          jQuery('#recommended-albums').append('<div class="recommended-albums"><image src="' + res.rec_img_1 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;">'+ res.rec_artist_1+'</p><p style="text-align: center;">'+ res.rec_album_1 +'</p></div>');
+          jQuery('#recommended-albums').append('<div class="recommended-albums"><image src="' + res.rec_img_2 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;">'+ res.rec_artist_2+'</p><p style="text-align: center;">'+ res.rec_album_2 +'</p></div>');
+          jQuery('#recommended-albums').append('<div class="recommended-albums"><image src="' + res.rec_img_3 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;">'+ res.rec_artist_3+'</p><p style="text-align: center;">'+ res.rec_album_3 +'</p></div>');
 
           // Hide Spinner overlay once data is loaded
           jQuery('#spinner-overlay').fadeOut();

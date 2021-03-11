@@ -6,8 +6,10 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.applications import VGG16
 import numpy as np
 from crate_scanner.albuminfo import matched_album
+from crate_scanner.recommender import grab_rec
 import json
 import argparse
+import pandas as pd
 
 # Creating basemodel for vectorization
 vgg16 = VGG16(weights='imagenet', include_top=True, pooling='max', input_shape=(224, 224, 3))
@@ -18,6 +20,7 @@ STATIC_DIR = os.path.abspath('static')
 
 # loading images database
 full_vectors = np.load('crate_scanner/data/VGG16_flatten_highres_array.npy', allow_pickle=True)
+recommender_db = pd.read_csv('crate_scanner/data/recommendation_full_dataframe.csv')
 
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
@@ -47,6 +50,24 @@ def return_data():
     # get reviews
     reviews = get_top3_reviews(artist, album)
 
+    #get recommendation_full_dataframe.csv
+    rec = grab_rec(album_id,recommender_db)
+
+    # get 1st recommended album
+    rec_album_1 = rec[0][2]
+    rec_artist_1 = rec[0][1]
+    rec_img_1 = rec[0][0]
+
+    # get 2nd
+    rec_album_2 = rec[1][2]
+    rec_artist_2 = rec[1][1]
+    rec_img_2 = rec[1][0]
+
+    # get 3rd
+    rec_album_3 = rec[2][2]
+    rec_artist_3 = rec[2][1]
+    rec_img_3 = rec[2][0]
+
     data = {
       "artist": artist.title(),
       "album": album.title(),
@@ -54,7 +75,17 @@ def return_data():
       "url_price": url_price,
       "album_id": album_id,
       "price": price,
-      "reviews": reviews
+      "reviews": reviews,
+      "rec_album_1": rec_album_1,
+      "rec_artist_1": rec_artist_1,
+      "rec_img_1": rec_img_1,
+      "rec_album_2": rec_album_2,
+      "rec_artist_2": rec_artist_2,
+      "rec_img_2": rec_img_2,
+      "rec_album_3": rec_album_3,
+      "rec_artist_3": rec_artist_3,
+      "rec_img_3": rec_img_3,
+
     }
 
     response = app.response_class(
