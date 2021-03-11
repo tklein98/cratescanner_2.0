@@ -10,13 +10,13 @@ import json
 
 # Creating basemodel for vectorization
 vgg16 = VGG16(weights='imagenet', include_top=True, pooling='max', input_shape=(224, 224, 3))
-basemodel = Model(inputs=vgg16.input, outputs=vgg16.get_layer('fc2').output)
+basemodel = Model(inputs=vgg16.input, outputs=vgg16.get_layer('flatten').output)
 
 TEMPLATE_DIR = os.path.abspath('templates')
 STATIC_DIR = os.path.abspath('static')
 
 # loading images database
-full_vectors = np.load('crate_scanner/data/full_array.npy', allow_pickle=True)
+full_vectors = np.load('crate_scanner/data/VGG16_flatten_highres_array.npy', allow_pickle=True)
 
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
