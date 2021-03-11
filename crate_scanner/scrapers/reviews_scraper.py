@@ -82,7 +82,9 @@ def get_top3_reviews(artist, album):
         if reviews == []:
             return ['no reviews found.']
 
+
         #display top 3 reviews
         return reviews[:2]
 
     return ['no reviews found.']
+
