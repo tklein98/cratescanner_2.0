@@ -30,7 +30,7 @@
         font-size: 1em;
       }
 
-      a {
+      a.homepage {
         border-radius: 50px;
         background-color: #E8A000;
         font-size: 16px;
@@ -85,6 +85,22 @@
         color: white;
       }
 
+      a#price {
+        font-family: 'Roboto Mono';
+        text-decoration: none;
+        color: white;
+        border-radius: 50px;
+        background-color: white;
+        color: black;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        width: 59px;
+        font-size: 12px;
+        padding: 2px 0;
+        box-shadow: 1px 1px 0px 1px rgb(183 183 183 / 79%);
+      }
+
    </style>
   </head>
   <body>
@@ -97,7 +113,7 @@
         <div style="margin-left: 10px;">
           <h1 id="artist" style= "font-size: 20px; font-weight: bold; margin: 0px;">placeholder Artist</h1>
           <h3 id="album" style= "font-size: 15px; font-weight: normal;">placeholder Album</h3>
-          <p id="price" style= "font-size: 15px; font-weight: lighter;">placeholder Price</p>
+          <div id="buy-btn"></div>
         </div>
       </div>
       <div id="spotify-widget">
@@ -107,7 +123,7 @@
         <p style= "font-size: 20px;">Reviews</p>
         <div class="reviews-wrapper"></div>
       </div>
-      <div class="center"><a href="/">Scan another Vinyl</a></div>
+      <div class="center"><a id ="homepage" href="/">Scan another Vinyl</a></div>
 
 
     </div>
@@ -160,7 +176,7 @@
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
       crossorigin="anonymous">
-     </script>
+    </script>
 
   <script>
         console.log("api call dispatched");
@@ -188,7 +204,8 @@
           // populate album info
           jQuery('#artist').html(res.artist);
           jQuery('#album').html(res.album);
-          jQuery('#price').html(res.price + " €");
+          jQuery('#buy-btn').append('<a id="price" href="' + res.url_price + '"">' + res.price + ' €</a>');
+
 
           // Insert album art at beginning of .album-profile
           jQuery('.album-profile').prepend('<image src="' + res.cover_url + '" width="150" height="150">');
