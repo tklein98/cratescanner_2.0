@@ -62,7 +62,7 @@ def get_top3_reviews(artist, album):
                 album_list.append(tag['href'])
 
         if album_list == []:
-            return False
+            return ['no reviews found.']
 
         url_2 = album_list[0]
 
@@ -80,9 +80,11 @@ def get_top3_reviews(artist, album):
 
         # display message if no reviews were found
         if reviews == []:
-            return False
+            return ['no reviews found.']
+
 
         #display top 3 reviews
         return reviews[:2]
 
-    return False
+    return ['no reviews found.']
+
