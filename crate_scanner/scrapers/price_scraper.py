@@ -40,7 +40,7 @@ def get_price(artist, album):
                     items.append(price_stripped)
 
             if items == []:
-                return "no price found"
+                return ["no price found", "no price found"]
 
             #find_minimum price
             min_price = min(items)
@@ -60,7 +60,7 @@ def get_price(artist, album):
 
             return [url_min_price, min_price]
 
-        return "no price found"
+        return ["no price found","no price found"]
 
     # if no albums were found
-    return "no price found"
+    return ["no price found", "no price found"]
