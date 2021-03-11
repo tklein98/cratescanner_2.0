@@ -23,6 +23,7 @@ full_vectors = np.load('crate_scanner/data/VGG16_flatten_highres_array.npy', all
 recommender_db = pd.read_csv('crate_scanner/data/recommendation_full_dataframe.csv')
 
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
+app.debug = True
 
 
 @app.route('/')
@@ -89,10 +90,10 @@ def return_data():
     }
 
     response = app.response_class(
-        response = json.dumps(data),
-        status=200,
-        mimetype='application/json'
-        )
+      response = json.dumps(data),
+      status=200,
+      mimetype='application/json'
+      )
 
     return response
 
