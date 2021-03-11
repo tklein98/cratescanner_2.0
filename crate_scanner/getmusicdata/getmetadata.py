@@ -1,21 +1,21 @@
 # MOVE TO METADATA FOLDER
 from os.path import join, dirname
 from os import environ
-from dotenv import load_dotenv
+import os
+from dotenv import load_dotenv, find_dotenv
 from crate_scanner.getmusicdata.spotifyapi import SpotifyAPI
 
 
 env_path = join(dirname(dirname(dirname(__file__))), ".env")
-load_dotenv(dotenv_path=env_path)
-
-client_id = environ.get('SPOTIFY_CLIENT_ID')
-client_secret = environ.get('SPOTIFY_CLIENT_SECRET')
+load_dotenv(find_dotenv())
+#load_dotenv(dotenv_path=env_path)
+client_id = os.environ.get('SPOTIFY_CLIENT_ID')
+client_secret = os.environ.get('SPOTIFY_CLIENT_SECRET')
 
 spotify = SpotifyAPI(client_id, client_secret)
 
 
 def get_album(artist):
-
     # Grab the relevant album metadata json file based on album_id from Spotify API
     album_search = spotify.search(query = artist, search_type="album")
     try:
@@ -48,3 +48,7 @@ def get_track_audio_features(track_id):
         return spotify.query_track_audio_features(track_id)
     except:
         return None
+
+# if __name__ == "__main__":
+#   print(client_id, client_secret)
+#   print(env_path)

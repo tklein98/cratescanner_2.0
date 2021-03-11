@@ -142,7 +142,3 @@ class SpotifyAPI(object):
         query_params = urlencode({"q": query, "type": search_type.lower()})
 
         return self.base_search(query_params)
-
-if __name__ == "__main__":
-  SpotifyAPI("421121", "232233sss").get_client_credentials()
-
