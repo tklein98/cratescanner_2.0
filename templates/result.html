@@ -14,6 +14,11 @@
           color: white;
           font-family: 'Roboto Mono';
         }
+
+      #buy-btn {
+        display: flex;
+        justify-content: center;
+      }
       div.containerresult {
             font-family: 'Roboto Mono';
             display: flex;
@@ -22,7 +27,8 @@
           }
 
       div.album-profile {
-        display: flex;
+        text-align: center;
+
       }
 
       div.reviews {
@@ -36,7 +42,7 @@
         font-size: 16px;
         margin-top: 50px;
         font-family: 'Roboto Mono';
-        width: 30vh;
+        width: 22vh;
         color: white;
         padding: 10px 20px;
         text-decoration: none;
@@ -104,9 +110,10 @@
       .recommended-albums {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         font-size: 11px;
+        width: 30%;
       }
 
       #recommended-albums {
@@ -119,13 +126,13 @@
   <body>
     <div id="spinner-overlay" >
       <img style="width: 100%" src="{{url_for('static',filename = 'vinyl-infinite-loop.gif')}}" >
-      <h1 style="font-size: 20px; display: flex; justify-content: center;"></h1>
+      <h1 style="font-size: 20px; display: flex; justify-content: center; "></h1>
     </div>
     <div class="containerresult" id="contents">
       <div class="album-profile">
-        <div style="margin-left: 10px;">
-          <h1 id="artist" style= "font-size: 20px; font-weight: bold; margin: 0px;">placeholder Artist</h1>
-          <h3 id="album" style= "font-size: 15px; font-weight: normal;">placeholder Album</h3>
+        <div style="margin-top: 20px;">
+          <h1 id="artist" style= "font-size: 20px; font-weight: bold; margin: 0px;text-align: center;">placeholder Artist</h1>
+          <h3 id="album" style= "font-size: 15px; font-weight: normal; text-align: center;">placeholder Album</h3>
           <div id="buy-btn"></div>
         </div>
       </div>
@@ -224,7 +231,7 @@
 
 
           // Insert album art at beginning of .album-profile
-          jQuery('.album-profile').prepend('<image src="' + res.cover_url + '" width="150" height="150">');
+          jQuery('.album-profile').prepend('<image src="' + res.cover_url + '" width="150" height="150" style="border-radius: 10px;">');
 
           // populate album reviews
           if(res.reviews.length === 0) {
@@ -241,9 +248,9 @@
           jQuery('#spotify-widget').append('<iframe src="https://open.spotify.com/embed/album/' + res.album_id + '" height="400" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>');
 
           // Recommended albums
-          jQuery('#recommended-albums').append('<div class="recommended-albums"><image src="' + res.rec_img_1 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;">'+ res.rec_artist_1+'</p><p style="text-align: center;">'+ res.rec_album_1 +'</p></div>');
-          jQuery('#recommended-albums').append('<div class="recommended-albums"><image src="' + res.rec_img_2 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;">'+ res.rec_artist_2+'</p><p style="text-align: center;">'+ res.rec_album_2 +'</p></div>');
-          jQuery('#recommended-albums').append('<div class="recommended-albums"><image src="' + res.rec_img_3 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;">'+ res.rec_artist_3+'</p><p style="text-align: center;">'+ res.rec_album_3 +'</p></div>');
+          jQuery('#recommended-albums').append('<div class="recommended-albums"><div style="display: flex;flex-direction: column;align-items: center;"><image src="' + res.rec_img_1 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;margin:0;">'+ res.rec_artist_1+'</p></div><p style="text-align: center;height:20%; margin: 0;">'+ res.rec_album_1 +'</p></div>');
+          jQuery('#recommended-albums').append('<div class="recommended-albums"><div style="display: flex;flex-direction: column;align-items: center;"><image src="' + res.rec_img_2 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;margin:0;">'+ res.rec_artist_2+'</p></div><p style="text-align: center;height:20%;margin: 0;">'+ res.rec_album_2 +'</p></div>');
+          jQuery('#recommended-albums').append('<div class="recommended-albums"><div style="display: flex;flex-direction: column;align-items: center;"><image src="' + res.rec_img_3 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;margin:0;">'+ res.rec_artist_3+'</p></div><p style="text-align: center;height:20%;margin: 0;">'+ res.rec_album_3 +'</p></div>');
 
           // Hide Spinner overlay once data is loaded
           jQuery('#spinner-overlay').fadeOut();

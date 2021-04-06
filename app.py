@@ -36,8 +36,8 @@ def return_data():
     album_info = matched_album(url, basemodel, full_vectors)
 
     # run model: retrieve album, artist and cover
-    artist = album_info[1].lower()
-    album = album_info[2].lower()
+    artist = album_info[1].lower().replace("'", "")
+    album = album_info[2].lower().replace("'", "")
     cover_url = album_info[5]
 
     # add spotify widget
@@ -54,18 +54,18 @@ def return_data():
     rec = grab_rec(album_id,recommender_db)
 
     # get 1st recommended album
-    rec_album_1 = rec[0][2]
-    rec_artist_1 = rec[0][1]
+    rec_album_1 = rec[0][2].replace("'", "")
+    rec_artist_1 = rec[0][1].replace("'", "")
     rec_img_1 = rec[0][0]
 
     # get 2nd
-    rec_album_2 = rec[1][2]
-    rec_artist_2 = rec[1][1]
+    rec_album_2 = rec[1][2].replace("'", "")
+    rec_artist_2 = rec[1][1].replace("'", "")
     rec_img_2 = rec[1][0]
 
     # get 3rd
-    rec_album_3 = rec[2][2]
-    rec_artist_3 = rec[2][1]
+    rec_album_3 = rec[2][2].replace("'", "")
+    rec_artist_3 = rec[2][1].replace("'", "")
     rec_img_3 = rec[2][0]
 
     data = {
