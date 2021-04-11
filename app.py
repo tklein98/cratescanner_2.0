@@ -12,7 +12,7 @@ import argparse
 import pandas as pd
 
 # Creating basemodel for vectorization
-vgg16 = VGG16(weights='imagenet', include_top=True, pooling='max', input_shape=(224, 224, 3))
+vgg16 = VGG16(weights='crate_scanner/data/vgg16_weights_tf_dim_ordering_tf_kernels.h5', include_top=True, pooling='max', input_shape=(224, 224, 3))
 basemodel = Model(inputs=vgg16.input, outputs=vgg16.get_layer('flatten').output)
 
 TEMPLATE_DIR = os.path.abspath('templates')
