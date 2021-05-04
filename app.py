@@ -37,7 +37,7 @@ def return_data():
 
     # run model: retrieve album, artist and cover
     artist = album_info[1].lower().replace("'", "")
-    album = album_info[2].lower().replace("'", "")
+    album = album_info[2].lower().replace("'", "").replace('(remastered)', '')
     cover_url = album_info[5]
 
     # add spotify widget
