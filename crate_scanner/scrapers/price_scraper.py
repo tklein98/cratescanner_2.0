@@ -1,14 +1,30 @@
 from bs4 import BeautifulSoup
 import requests
 
+
 def get_price(artist, album):
-    # buid URL
+    # build URL
     artist_transformed = artist.replace(" ", "+")
     album_transformed = album.replace(" ", "+")
-    url = f"https://www.discogs.com/search/?q={artist_transformed}+{album_transformed}&type=all&format_exact=Vinyl"
 
-    # retrieve master_id
+
+    # retrieve master_id using Discogs API
+    url = f"https://api.discogs.com/database/search?release_title={album_transformed}&artist={artist_transformed}&format=Vinyl&curr_abbr=EUR&token=JROUhijcLnDuKfcxtqmMTqlDcJpuBybBQWPTdxyJ"
+    print(url)
     response = requests.get(url)
+    master_url = response.json()['results'][0]['master_url']
+    master_url_response = requests.get(master_url)
+    main_release_url = master_url_response.json()["main_release_url"]
+    main_release_url_response = requests.get(main_release_url)
+    master_id = main_release_url_response.json()['master_id']
+    real_master_url = main_release_url_response.json()['master_url']
+    real_master_url_response = requests.get(real_master_url)
+
+    lowest_price = real_master_url_response.json()['lowest_price']
+    link = f"https://www.discogs.com/sell/list?sort=price%2Casc&limit=25&master_id={master_id}&ev=mb&format=Vinyl&currency=EUR"
+
+    return [link, lowest_price]
+
     soup = BeautifulSoup(response.content, "html.parser")
 
     # check if albums were found:

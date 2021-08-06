@@ -2,17 +2,18 @@
 
 <html lang="en", style="display:flex;">
   <head>
+    <script src="https://kit.fontawesome.com/e3e2f6b9b5.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename= 'css/index.css') }}"> -->
     <title>Crate Scanner</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;600;700&display=swap" rel="stylesheet">
     <style>
       body {
-          background-color: black;
+          background-color: #1C1C1C;
           color: white;
-          font-family: 'Roboto Mono';
+          font-family: 'Roboto';
         }
 
       #buy-btn {
@@ -20,7 +21,7 @@
         justify-content: center;
       }
       div.containerresult {
-            font-family: 'Roboto Mono';
+            font-family: 'Roboto';
             display: flex;
             flex-direction: column;
             margin: 4vh;
@@ -37,22 +38,26 @@
       }
 
       a#homepage {
-        border-radius: 50px;
+        border-radius: 7px;
         background-color: #E8A000;
         font-size: 16px;
-        margin-top: 50px;
-        font-family: 'Roboto Mono';
+        margin-top: 10vh;
+        font-family: 'Roboto';
         width: 22vh;
-        color: white;
+        color: black;
         padding: 10px 20px;
         text-decoration: none;
         display: flex;
         justify-content: center;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        font-weight: 700;
       }
 
       div.center {
         display: flex;
+        flex-direction: column;
         justify-content: center;
+        align-items: center;
       }
 
       #spinner-overlay {
@@ -85,26 +90,27 @@
       }
 
       .read-more-button {
-        font-family: 'Roboto Mono';
+        font-family: 'Roboto';
         background: none;
         border: none;
         color: white;
       }
 
       a#price {
-        font-family: 'Roboto Mono';
+        font-family: 'Roboto';
         text-decoration: none;
-        color: white;
-        border-radius: 50px;
-        background-color: white;
+        border-radius: 7px;
+        background-color: #E8A000;
         color: black;
-        text-decoration: none;
         display: flex;
         justify-content: center;
-        width: 59px;
+        width: 85px;
+        height: 27px;
+        font-weight: 700;
         font-size: 12px;
         padding: 2px 0;
-        box-shadow: 1px 1px 0px 1px rgb(183 183 183 / 79%);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        align-items: center;
       }
 
       .recommended-albums {
@@ -131,22 +137,28 @@
     <div class="containerresult" id="contents">
       <div class="album-profile">
         <div style="margin-top: 20px;">
-          <h1 id="artist" style= "font-size: 20px; font-weight: bold; margin: 0px;text-align: center;">placeholder Artist</h1>
-          <h3 id="album" style= "font-size: 15px; font-weight: normal; text-align: center;">placeholder Album</h3>
+          <h1 id="artist" style= "font-size: 20px; font-weight: bold; margin: 0px;text-align: center;text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);">placeholder Artist</h1>
+          <h3 id="album" style= "font-size: 15px; font-weight: normal; text-align: center;text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);">placeholder Album</h3>
           <div id="buy-btn"></div>
         </div>
       </div>
       <div id="spotify-widget">
-         <p style= "margin-top: 5vh; font-size: 20px; font-weight: normal;">Drop the needle</p>
+         <p style= "margin-top: 5vh; font-size: 20px; font-weight: 700; color: #E8A000;text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);">Drop the needle</p>
       </div>
       <div class="reviews">
-        <p style= "text-decoration: underline; margin-top: 5vh; font-size: 20px;">Reviews</p>
+        <p style= "margin-top: 5vh; font-size: 20px; font-weight: 700; color: #E8A000;text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);">Reviews</p>
         <div class="reviews-wrapper"></div>
       </div>
-      <p style= "text-decoration: underline; font-size: 20px; font-weight: normal;">Similar albums</p>
+      <p style= "margin-top: 5vh; font-size: 20px; font-weight: 700; color: #E8A000;text-shadow: 0px 4px 2px rgba(0, 0, 0, 0.25);">Similar albums</p>
       <div id="recommended-albums">
       </div>
-      <div class="center"><a id ="homepage" href="/">Scan another Vinyl</a></div>
+      <div class="center">
+        <a id ="homepage" href="/">Scan another Vinyl</a>
+        <div>
+          <img style="height: 100px; margin-top:7vh; border-radius: 7px;" src="{{url_for('static',filename = 'logo3.png')}}" >
+        </div>
+      </div>
+
 
 
     </div>
@@ -227,11 +239,14 @@
           // populate album info
           jQuery('#artist').html(res.artist);
           jQuery('#album').html(res.album);
-          jQuery('#buy-btn').append('<a id="price" href="' + res.url_price + '"">' + res.price + ' €</a>');
+
+          jQuery('#buy-btn').append('<a id="price" href="' + res.url_price + '"">' + res.price + '$  |  <i class="fas fa-shopping-cart"></i></a>');
+
+
 
 
           // Insert album art at beginning of .album-profile
-          jQuery('.album-profile').prepend('<image src="' + res.cover_url + '" width="150" height="150" style="border-radius: 10px;">');
+          jQuery('.album-profile').prepend('<image src="' + res.cover_url + '" width="150" height="150" style="border-radius: 7px; box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);">');
 
           // populate album reviews
           if(res.reviews.length === 0) {
@@ -245,12 +260,12 @@
           }
 
           // Spotify widdget
-          jQuery('#spotify-widget').append('<iframe src="https://open.spotify.com/embed/album/' + res.album_id + '" height="400" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>');
+          jQuery('#spotify-widget').append('<div style="display: flex;flex-direction: column;align-items: center;"><iframe src="https://open.spotify.com/embed/album/' + res.album_id + '" width="250" height="250" frameborder="0" allowtransparency="true" allow="encrypted-media" style="border-radius:7px; box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);"></iframe></div>');
 
           // Recommended albums
-          jQuery('#recommended-albums').append('<div class="recommended-albums"><div style="display: flex;flex-direction: column;align-items: center;"><image src="' + res.rec_img_1 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;margin:0;">'+ res.rec_artist_1+'</p></div><p style="text-align: center;height:20%; margin: 0;">'+ res.rec_album_1 +'</p></div>');
-          jQuery('#recommended-albums').append('<div class="recommended-albums"><div style="display: flex;flex-direction: column;align-items: center;"><image src="' + res.rec_img_2 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;margin:0;">'+ res.rec_artist_2+'</p></div><p style="text-align: center;height:20%;margin: 0;">'+ res.rec_album_2 +'</p></div>');
-          jQuery('#recommended-albums').append('<div class="recommended-albums"><div style="display: flex;flex-direction: column;align-items: center;"><image src="' + res.rec_img_3 + '" width="50" height="50"><p style="text-align: center; font-weight: bold;margin:0;">'+ res.rec_artist_3+'</p></div><p style="text-align: center;height:20%;margin: 0;">'+ res.rec_album_3 +'</p></div>');
+          jQuery('#recommended-albums').append('<div class="recommended-albums"><div style="display: flex;flex-direction: column;align-items: center;"><image src="' + res.rec_img_1 + '" width="50" height="50" style="margin-bottom: 14px;"><p style="text-align: center; font-weight: bold;margin:0;">'+ res.rec_artist_1+'</p></div><p style="text-align: center;height:20%; margin: 0;">'+ res.rec_album_1 +'</p></div>');
+          jQuery('#recommended-albums').append('<div class="recommended-albums"><div style="display: flex;flex-direction: column;align-items: center;"><image src="' + res.rec_img_2 + '" width="50" height="50" style="margin-bottom: 14px;"><p style="text-align: center; font-weight: bold;margin:0;">'+ res.rec_artist_2+'</p></div><p style="text-align: center;height:20%;margin: 0;">'+ res.rec_album_2 +'</p></div>');
+          jQuery('#recommended-albums').append('<div class="recommended-albums"><div style="display: flex;flex-direction: column;align-items: center;"><image src="' + res.rec_img_3 + '" width="50" height="50" style="margin-bottom: 14px;"><p style="text-align: center; font-weight: bold;margin:0;">'+ res.rec_artist_3+'</p></div><p style="text-align: center;height:20%;margin: 0;">'+ res.rec_album_3 +'</p></div>');
 
           // Hide Spinner overlay once data is loaded
           jQuery('#spinner-overlay').fadeOut();
@@ -271,6 +286,8 @@
             var toggleText1 = document.getElementById('toggle-0');
             var readMore2 = document.getElementById('read-more-1');
             var toggleText2 = document.getElementById('toggle-1');
+            var readMore3 = document.getElementById('read-more-2');
+            var toggleText3 = document.getElementById('toggle-2');
             readMore1.addEventListener('click', () => {
                 toggleText1.classList.toggle('sliced');
                 readClass(toggleText1, readMore1);
@@ -278,6 +295,10 @@
             readMore2.addEventListener('click', () => {
                 toggleText2.classList.toggle('sliced');
                 readClass(toggleText2, readMore2);
+            });
+            readMore3.addEventListener('click', () => {
+                toggleText3.classList.toggle('sliced');
+                readClass(toggleText3, readMore3);
             });
           }
 
@@ -287,6 +308,3 @@
   </body>
 
 </html>
-
-
-
