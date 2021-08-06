@@ -40,6 +40,7 @@ def return_data():
     artist = album_info[1].lower().replace("'", "")
     album = album_info[2].lower().replace("'", "")
     album = re.sub("[\(\[].*?[\)\]]", "", album)
+
     cover_url = album_info[5]
 
     # add spotify widget
