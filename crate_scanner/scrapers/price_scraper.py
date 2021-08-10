@@ -1,3 +1,8 @@
+
+from bs4 import BeautifulSoup
+import requests
+
+
 def get_price(artist, album):
     # build URL
     artist_transformed = artist.replace(" ", "+")
@@ -8,18 +13,21 @@ def get_price(artist, album):
     url = f"https://api.discogs.com/database/search?release_title={album_transformed}&artist={artist_transformed}&format=Vinyl&token=JROUhijcLnDuKfcxtqmMTqlDcJpuBybBQWPTdxyJ"
     # print(url)
     response = requests.get(url)
-    master_url = response.json()['results'][0]['master_url']
-    master_url_response = requests.get(master_url)
-    main_release_url = master_url_response.json()["main_release_url"]
-    main_release_url_response = requests.get(main_release_url)
-    master_id = main_release_url_response.json()['master_id']
-    real_master_url = main_release_url_response.json()['master_url']
-    real_master_url_response = requests.get(real_master_url)
+    master_id = response.json()['results'][0]['master_id']
+    
+#     master_url = response.json()['results'][0]['master_url']
+#     master_url_response = requests.get(master_url)
+#     main_release_url = master_url_response.json()["main_release_url"]
+#     main_release_url_response = requests.get(main_release_url)
+#     master_id = main_release_url_response.json()['master_id']
+#     real_master_url = main_release_url_response.json()['master_url']
+#     real_master_url_response = requests.get(real_master_url)
 
-    lowest_price = real_master_url_response.json()['lowest_price']
+#     lowest_price = real_master_url_response.json()['lowest_price']
+
     link = f"https://www.discogs.com/sell/list?master_id={master_id}&format=Vinyl"
 
-
+    
     response = requests.get(link)
     soup = BeautifulSoup(response.text, features="lxml")
     soup.find_all('td', class_="item_description")
@@ -35,8 +43,10 @@ def get_price(artist, album):
             price_stripped = float(price.text.strip('about').strip('total').strip(' ').replace('€', '').replace('$', ''))
             items.append(price_stripped)
 
+
     if items == []:
         print("no price found", "no price found")
+        
 
     # find_minimum price
     min_price = min(items)
@@ -48,6 +58,7 @@ def get_price(artist, album):
             tag = listing.find("a")
             url = tag['href']
             all_urls.append(url)
+
 
     url_min_price = f"https://www.discogs.com/{all_urls[min_price_index]}"
 

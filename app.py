@@ -10,6 +10,7 @@ from crate_scanner.recommender import grab_rec
 import json
 import argparse
 import pandas as pd
+import re
 
 # Creating basemodel for vectorization
 vgg16 = VGG16(weights='crate_scanner/data/vgg16_weights_tf_dim_ordering_tf_kernels.h5', include_top=True, pooling='max', input_shape=(224, 224, 3))
@@ -37,7 +38,9 @@ def return_data():
 
     # run model: retrieve album, artist and cover
     artist = album_info[1].lower().replace("'", "")
-    album = album_info[2].lower().replace("'", "").replace('(remastered)', '')
+    album = album_info[2].lower().replace("'", "")
+    album = re.sub("[\(\[].*?[\)\]]", "", album)
+
     cover_url = album_info[5]
 
     # add spotify widget

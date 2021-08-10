@@ -286,6 +286,8 @@
             var toggleText1 = document.getElementById('toggle-0');
             var readMore2 = document.getElementById('read-more-1');
             var toggleText2 = document.getElementById('toggle-1');
+            var readMore3 = document.getElementById('read-more-2');
+            var toggleText3 = document.getElementById('toggle-2');
             readMore1.addEventListener('click', () => {
                 toggleText1.classList.toggle('sliced');
                 readClass(toggleText1, readMore1);
@@ -293,6 +295,10 @@
             readMore2.addEventListener('click', () => {
                 toggleText2.classList.toggle('sliced');
                 readClass(toggleText2, readMore2);
+            });
+            readMore3.addEventListener('click', () => {
+                toggleText3.classList.toggle('sliced');
+                readClass(toggleText3, readMore3);
             });
           }
 
@@ -302,6 +308,3 @@
   </body>
 
 </html>
-
-
-
