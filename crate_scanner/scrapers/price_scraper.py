@@ -40,7 +40,8 @@ def get_price(artist, album):
     for listing in listings:
         if listing.find("span", class_="converted_price"):
             price = listing.find("span", class_="converted_price")
-            price_stripped = float(price.text.strip('about').strip('total').strip(' ').replace('€', '').replace('$', ''))
+            price_float = float(price.text.strip('about').strip('total').strip(' ').replace('€', '').replace('$', '').replace(',',''))
+            price_stripped = format(price_float, ',.2f')
             items.append(price_stripped)
 
 
