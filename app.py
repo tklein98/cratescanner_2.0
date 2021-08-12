@@ -47,7 +47,7 @@ def return_data():
     album_id = album_info[4]
 
     # get price
-    price = get_price(artist, album)[1]
+    price = format(get_price(artist, album)[1], '.2f')
     url_price = get_price(artist, album)[0]
 
     # get reviews
