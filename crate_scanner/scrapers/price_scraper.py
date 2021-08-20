@@ -34,24 +34,27 @@ def get_price(artist, album):
 
     # listings = soup.find_all("span", class_="converted_price")
     listings = soup.find_all("tr", class_="shortcut_navigable") 
-        
+    
     # # retrieve all total prices
     items = []
     for listing in listings:
         if listing.find("span", class_="converted_price"):
             price = listing.find("span", class_="converted_price")
-            price_float = float(price.text.strip('about').strip('total').strip(' ').replace('€', '').replace('$', '').replace(',',''))
-            price_stripped = format(price_float, ',.2f')
-            items.append(price_stripped)
+            price_stripped = price.text.strip('about').strip('total').strip(' ').replace('€', '').replace('$', '').replace(',','')
+            price_float = float(price_stripped)
+            price_decimal = format(price_float, '.2f')
+            items.append(price_float)
 
 
     if items == []:
-        print("no price found", "no price found")
-        
+        return["no price found", "no price found"]
 
     # find_minimum price
     min_price = min(items)
     min_price_index = items.index(min_price)
+
+    print(min_price)
+    print(type(min_price))
 
     all_urls = []
     for listing in listings:
