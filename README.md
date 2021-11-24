@@ -1,3 +1,6 @@
+![Upload](https://user-images.githubusercontent.com/44325167/143235593-87731401-0a7a-4ab6-b1b4-bf78d290a9fa.png)
+
+
 # Data analysis
 - Document here the project: crate_scanner
 - Description: Project Description
