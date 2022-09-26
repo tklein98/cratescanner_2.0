@@ -15,17 +15,19 @@ import pandas as pd
 import re
 
 # Creating basemodel for vectorization
-model_new = tf.keras.applications.resnet50.ResNet50(
-    include_top=True,
-    weights='imagenet',
-    input_tensor=None,
-    input_shape=None,
-    pooling=None,
-    classes=1000,
-)
 
-basemodel = Model(inputs=model_new.input, outputs=model_new.get_layer('avg_pool').output)
+# model_new = tf.keras.applications.resnet50.ResNet50(
+#     include_top=True,
+#     weights='imagenet',
+#     input_tensor=None,
+#     input_shape=None,
+#     pooling=None,
+#     classes=1000,
+# )
 
+# basemodel = Model(inputs=model_new.input, outputs=model_new.get_layer('avg_pool').output)
+
+basemodel = tf.keras.models.load_model('crate_scanner/data/resnet50_avg_model.h5')
 TEMPLATE_DIR = os.path.abspath('templates')
 STATIC_DIR = os.path.abspath('static')
 
