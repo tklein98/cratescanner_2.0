@@ -8,7 +8,7 @@ wheel>=0.29
 numpy
 pandas
 # scikit-learn
-opencv-python
+opencv-python-headless
 tensorflow-cpu
 
 # tests/linter

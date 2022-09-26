@@ -1,4 +1,3 @@
-
 import cv2
 # from scipy.spatial import distance
 import numpy as np
