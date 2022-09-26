@@ -21,8 +21,8 @@ tensorflow-cpu
 # API
 gcsfs
 google-cloud-storage
-mlflow
-s3fs
+# mlflow
+# s3fs
 cloudinary
 
 
