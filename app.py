@@ -2,8 +2,8 @@ from flask import Flask, request, render_template
 from crate_scanner.scrapers.price_scraper import get_price
 from crate_scanner.scrapers.reviews_scraper import get_top3_reviews
 import os
-from tensorflow.keras.models import Model
-from tensorflow.keras.applications import VGG16
+# from tensorflow.keras.models import Model
+# from tensorflow.keras.applications import VGG16
 import tensorflow as tf
 import numpy as np
 from crate_scanner.albuminfo import matched_album
