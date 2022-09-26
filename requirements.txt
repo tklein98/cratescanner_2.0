@@ -30,12 +30,12 @@ cloudinary
 six>=1.14
 joblib
 memoized-property
-termcolor
-python-dotenv
+# termcolor
+# python-dotenv
 flask
 beautifulsoup4==4.9.3
 gunicorn
 # selenium
 # webdriver_manager
 # chromedriver
-lxml
+# lxml
