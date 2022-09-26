@@ -1,6 +1,6 @@
 
 import cv2
-from scipy.spatial import distance
+# from scipy.spatial import distance
 import numpy as np
 import urllib
 import requests

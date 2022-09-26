@@ -34,7 +34,7 @@ termcolor
 python-dotenv
 flask
 beautifulsoup4==4.9.3
-selenium
-webdriver_manager
-chromedriver
+# selenium
+# webdriver_manager
+# chromedriver
 lxml

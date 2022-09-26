@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 from crate_scanner.scrapers.price_scraper import get_price
 from crate_scanner.scrapers.reviews_scraper import get_top3_reviews
 import os
-# from tensorflow.keras.models import Model
+from tensorflow.keras.models import Model
 # from tensorflow.keras.applications import VGG16
 import tensorflow as tf
 import numpy as np
@@ -62,8 +62,10 @@ def return_data():
     # album_id = album_info[4]
     album_id = '1C2h7mLntPSeVYciMRTF4a'
     # get price
-    price = format(get_price(artist, album)[1], '.2f')
-    url_price = get_price(artist, album)[0]
+    price = '20'
+    # format(get_price(artist, album)[1], '.2f')
+    url_price = 'www.google.com'
+    # get_price(artist, album)[0]
 
     print('price:',price)
     # get reviews
