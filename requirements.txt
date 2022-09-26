@@ -19,9 +19,9 @@ tensorflow-cpu
 # yapf
 
 # API
-# gcsfs
-# google-cloud-storage
-# mlflow
+gcsfs
+google-cloud-storage
+mlflow
 s3fs
 cloudinary
 
