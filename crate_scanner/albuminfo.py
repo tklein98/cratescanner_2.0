@@ -4,6 +4,7 @@ from scipy.spatial import distance
 import numpy as np
 import urllib
 import requests
+from numpy.linalg import norm
 
 
 def get_feature_vector(img, basemodel):
@@ -12,7 +13,32 @@ def get_feature_vector(img, basemodel):
     return feature_vector
 
 def calculate_similarity(vector1, vector2):
-    return distance.cosine(vector1, vector2)
+    # return dot(vector1, vector2.T)/(norm(vector1)*norm(vector2))
+    return 1-(np.dot(vector1,vector2.T))/(norm(vector1)*norm(vector2))
+
+
+def find_match(image,database):
+    similarity = []
+    for index, row in enumerate(database):
+        # similarity = np.append(similarity,calculate_similarity(feature_vector_test, row[0][1]))
+        similarity.append(calculate_similarity(image, row[1]))
+
+    similarity = np.array(similarity)
+    index = np.argmin(similarity)
+    return database[index][0]
+
+def make_prediction(model,image,database):
+    # tmp_crop = draw_frame(image)
+    # cropped = tmp_crop[1]
+    cropped = url_to_image(image)
+    
+    feature_vector_test = get_feature_vector(cropped,model)
+    feature_vector_test_reduced = feature_vector_test
+    # feature_vector_test_reduced = np.mean(feature_vector_test.reshape(-1, 32), axis=1)
+    match = find_match(feature_vector_test_reduced,database)
+    return match
+
+
 
 
 def matched_album(input_image, basemodel, full_vectors):

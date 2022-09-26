@@ -2,7 +2,7 @@ from tensorflow.keras.layers import Flatten, Dense, Input,concatenate
 from tensorflow.keras.layers import Conv2D, MaxPooling2D
 from tensorflow.keras.layers import Activation, Dropout
 from tensorflow.keras.models import Model, Sequential
-from scipy.spatial import distance
+# from scipy.spatial import distance
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt

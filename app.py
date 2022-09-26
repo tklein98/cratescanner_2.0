@@ -4,8 +4,10 @@ from crate_scanner.scrapers.reviews_scraper import get_top3_reviews
 import os
 from tensorflow.keras.models import Model
 from tensorflow.keras.applications import VGG16
+import tensorflow as tf
 import numpy as np
 from crate_scanner.albuminfo import matched_album
+from crate_scanner.albuminfo import make_prediction
 from crate_scanner.recommender import grab_rec
 import json
 import argparse
@@ -13,14 +15,22 @@ import pandas as pd
 import re
 
 # Creating basemodel for vectorization
-vgg16 = VGG16(weights='crate_scanner/data/vgg16_weights_tf_dim_ordering_tf_kernels.h5', include_top=True, pooling='max', input_shape=(224, 224, 3))
-basemodel = Model(inputs=vgg16.input, outputs=vgg16.get_layer('flatten').output)
+model_new = tf.keras.applications.resnet50.ResNet50(
+    include_top=True,
+    weights='imagenet',
+    input_tensor=None,
+    input_shape=None,
+    pooling=None,
+    classes=1000,
+)
+
+basemodel = Model(inputs=model_new.input, outputs=model_new.get_layer('avg_pool').output)
 
 TEMPLATE_DIR = os.path.abspath('templates')
 STATIC_DIR = os.path.abspath('static')
 
 # loading images database
-full_vectors = np.load('crate_scanner/data/VGG16_flatten_highres_array.npy', allow_pickle=True)
+database = np.load('crate_scanner/data/resnet50_preprocessing.npy', allow_pickle=True)
 recommender_db = pd.read_csv('crate_scanner/data/recommendation_full_dataframe.csv')
 
 app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
@@ -34,22 +44,28 @@ def index():
 def return_data():
     url = request.args.get("url")
     # run model 1:artist, 2:album, 3:artist+album, 4: album_id, 5: album_cover
-    album_info = matched_album(url, basemodel, full_vectors)
-
+    album_info = make_prediction(basemodel,url, database)
+    print('prediction:',album_info)
     # run model: retrieve album, artist and cover
-    artist = album_info[1].lower().replace("'", "")
-    album = album_info[2].lower().replace("'", "")
-    album = re.sub("[\(\[].*?[\)\]]", "", album)
+    cleaned = album_info.lower().replace(".jpg", "")
+    # artist = album_info[1].lower().replace("'", "")
+    # album = album_info[2].lower().replace("'", "")
+    # album = re.sub("[\(\[].*?[\)\]]", "", album)
 
+    split = cleaned.split('_')
+    album = split[0]
+    artist = split[1]
+    print('album',album,'artist',artist)
     cover_url = album_info[5]
 
     # add spotify widget
-    album_id = album_info[4]
-
+    # album_id = album_info[4]
+    album_id = '1C2h7mLntPSeVYciMRTF4a'
     # get price
     price = format(get_price(artist, album)[1], '.2f')
     url_price = get_price(artist, album)[0]
 
+    print('price:',price)
     # get reviews
     reviews = get_top3_reviews(artist, album)
 
